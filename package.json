@@ -12,7 +12,6 @@
     "@material-ui/icons": "^4.2.0",
     "@testing-library/react": "^9.1.4",
     "@types/jest": "^24.0.15",
-    "@types/jquery": "^3.3.31",
     "@types/lingui__core": "^2.7.0",
     "@types/lingui__macro": "^2.7.3",
     "@types/lingui__react": "^2.5.2",
