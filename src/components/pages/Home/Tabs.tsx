@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react'
 import DocsView from "../../utils/docs-generator/DocsView";
+import GraphPage from './Graphs/GraphPage';
 
 
 /**
@@ -13,8 +14,8 @@ export default function Tabs() {
           render: () => <Tab.Pane attached={false}><DocsView path="/Users/sirily11/Desktop/Senior-Design/src/components/pages/Home/Introductions"></DocsView></Tab.Pane>,
         },
         {
-          menuItem: 'Tab 2',
-          render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane>,
+          menuItem: 'Graph',
+          render: () => <Tab.Pane attached={false}><GraphPage></GraphPage></Tab.Pane>,
         },
         {
           menuItem: 'Docs',
