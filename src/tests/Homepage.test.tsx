@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { HomePage } from "../components/pages/HomePage"
+import { HomePage } from "../components/pages/Home/HomePage"
 
 
 describe("Test post context", () => {
