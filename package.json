@@ -33,6 +33,7 @@
     "react-dropzone": "^10.1.5",
     "react-infinite-scroller": "^1.2.4",
     "react-jsonschema-form": "^1.8.0",
+    "react-markdown": "^4.2.2",
     "react-router-dom": "^5.0.1",
     "react-router-transition": "^1.3.0",
     "react-scripts": "^3.0.1",
