@@ -1,3 +1,5 @@
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
 Safety Cases use an organized combination of structural units to help build arguments that prove the root goal of a project is safe. These units include Goal, Strategy, Context, Justification, Assumption, and Solution (Kelly and Weaver, 2004). Each safety case begins with a single root Goal (usually stating that some project is safe) with Context units for the intended environmental conditions of the organism and the species and strain of the organism in use.
 
 **A Strategy** is then used to break that Goal down into smaller sub-Goals that each address a aspect of the project. (Many times, one can’t explore all of the identified hazards in a situation. In this case, one would use a diamond (mentioned below) to symbolize the fact that there may be things in this area that need to be considered further.).

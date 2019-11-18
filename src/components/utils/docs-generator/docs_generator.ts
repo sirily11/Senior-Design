@@ -1,5 +1,5 @@
 import * as path from "path"
-const fs = (window as any).require("fs")
+import fs from 
 
 export interface Menu {
     name: string;
@@ -38,6 +38,9 @@ export class DocsGenerator {
                 resolve()
             })
         })
+    }
+
+    async writeDocsToJS(){
 
     }
 }

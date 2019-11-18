@@ -58,6 +58,7 @@
     "mac": "electron-builder -m",
     "all": "electron-builder -mw",
     "clean": "rm -rf dist",
+    "electron-dev-win": " tsc public/electron.ts && concurrently \"yarn start \" \"wait-on http://localhost:3000  && electron .\"",
     "electron-dev": " tsc public/electron.ts && concurrently \"BROWSER=none yarn start \" \"wait-on http://localhost:3000  && electron .\""
   },
   "build": {
