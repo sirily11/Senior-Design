@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  code-server:
+    container_name: code-server
+    build: ./
+    ports:
+      - "8080:8080"
+      - 3000:3000
+    volumes:
+      - "${PWD}:/home/coder/project"
+      - "${HOME}/.local/share/code-server:/home/coder/.local/share/code-server"
+    environment:
+      PASSWORD: "12345"
