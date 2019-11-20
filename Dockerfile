@@ -6,4 +6,4 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/so
 RUN sudo apt -y update && sudo apt -y install yarn
 RUN yarn global add n
 RUN n stable
-USER coder
+USER root

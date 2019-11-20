@@ -9,6 +9,6 @@ services:
       - 3000:3000
     volumes:
       - "./:/home/coder/project"
-      - "./code-server/.local/share/code-server:/home/coder/.local/share/code-server"
+      - "./code-server:/home/coder/.local/share/code-server"
     environment:
       PASSWORD: "12345"
