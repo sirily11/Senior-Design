@@ -7,6 +7,19 @@ To install the project on your machine, you have three options.
 - Install using docker (This docker doesn't contain the automatically run, in fact it contains a code server which you can write code directly in your browser)
 - Using VM (This actually is running docker inside the VM for windows user. If you are using unix system like MacOS, you can ignore this)
 
+
+# Install using Docker
+
+(1) First, get [docker](https://docs.docker.com/docker-for-mac/install/)
+
+(2) Get docker-compose. Note, if you install docker using above link on MacOS, you don't have to install docker compose.
+
+(3) Run command
+```
+docker-compose up
+```
+
+
 # Install using VM
 
 First, download the VM using this [link](https://github.com/sirily11/Senior-Design/releases/tag/0.1.0). Note, the vm file is SeniorDesign.ova
