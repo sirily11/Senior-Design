@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Tab } from 'semantic-ui-react'
 import DocsView from "../../utils/docs-generator/DocsView";
 import GraphPage from './Graphs/GraphPage';
@@ -19,7 +19,7 @@ export default function Tabs() {
           render: () => <Tab.Pane attached={false}><GraphPage></GraphPage></Tab.Pane>,
         },
         
-      ]
+    ]
     
     return (
         <Tab menu={{ secondary: true }} panes={panes} />
