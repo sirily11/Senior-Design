@@ -10,7 +10,7 @@ export default function Graph() {
 
   return (
     <Grid.Column>
-      <Stage width={window.innerWidth / 2} height={800}>
+      <Stage width={window.innerWidth / 2} height={400}>
         <Layer>
           <Text
             fontSize={20}

@@ -1,5 +1,7 @@
 # Help Docs of Running the project
 
+[React Tutorial](./react.md)
+
 ## Getting start
 
 To install the project on your machine, you have three options.
