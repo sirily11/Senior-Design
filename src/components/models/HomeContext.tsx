@@ -1,26 +1,36 @@
 import React, { Component } from "react";
 import { Graph } from "./graph";
 
-
-
 interface HomePageContext {
-  graph : Graph
+  graph: Graph;
+  update(): void;
 }
 
 interface HomePageProps {}
 
-export class HomePageProvider extends Component<HomePageProps, HomePageContext> {
+export class HomePageProvider extends Component<
+  HomePageProps,
+  HomePageContext
+> {
   constructor(props: HomePageProps) {
     super(props);
     this.state = {
-      graph : new Graph()
+      graph: new Graph(),
+      update: this.update
     };
   }
 
-  update = () =>{
-    const { graph } = this.state
-    this.setState({graph})
+  async componentWillMount() {
+    let graph = this.state.graph;
+    let gs = await graph.getAllGraph();
+    graph.graphs = gs;
+    this.setState({ graph });
   }
+
+  update = () => {
+    const { graph } = this.state;
+    this.setState({ graph });
+  };
 
   render() {
     return (
@@ -32,7 +42,8 @@ export class HomePageProvider extends Component<HomePageProps, HomePageContext> 
 }
 
 const context: HomePageContext = {
-    graph : new Graph()
+  graph: new Graph(),
+  update: () => {}
 };
 
 export const HomePageContext = React.createContext(context);

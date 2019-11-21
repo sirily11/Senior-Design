@@ -1,14 +1,25 @@
-version: "3"
+version: "3.3"
 
 services:
   code-server:
     container_name: code-server
-    build: ./
+    build: ./docker/code
     ports:
       - "8080:8080"
       - 3000:3000
     volumes:
-      - "../:/home/coder/project"
+      - "./:/home/coder/project"
       - "./code-server:/home/coder/.local/share/code-server"
     environment:
       PASSWORD: "12345"
+
+  react:
+    container_name: react-container
+    build: ./
+    command: "yarn start"
+    ports:
+      - 3000:3000
+    volumes:
+      - "./src:/home/projects/src"
+      - "./public:/home/projects/public"
+      - "./tsconfig.json:/home/projects/tsconfig.json"
