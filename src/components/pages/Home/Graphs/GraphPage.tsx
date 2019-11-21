@@ -18,6 +18,7 @@ import Konva from "konva";
 import GraphActions from "./GraphActions";
 import Graph from "./Graph";
 import GraphInfo from "./GraphInfo";
+import GraphToolArea from "./GraphToolArea";
 
 export default function GraphPage() {
   return (
@@ -30,9 +31,9 @@ export default function GraphPage() {
             <GraphInfo></GraphInfo>
           </Grid.Row>
         </Segment>
-
         <Graph></Graph>
       </Grid>
+      <GraphToolArea></GraphToolArea>
     </div>
   );
 }

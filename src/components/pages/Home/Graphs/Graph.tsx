@@ -16,14 +16,18 @@ export default function Graph() {
             fontSize={20}
             text={graph.selectedGraph ? graph.selectedGraph.description : ""}
           />
-          <Rect
-            x={50}
-            y={20}
-            width={250}
-            height={250}
-            fill={Konva.Util.getRandomColor()}
-            shadowBlur={5}
-          />
+          {graph.selectedGraph &&
+            graph.selectedGraph.nodes &&
+            graph.selectedGraph.nodes.map(n => (
+              <Rect
+                x={n.x}
+                y={n.y}
+                width={n.width}
+                height={n.height}
+                fill={Konva.Util.getRandomColor()}
+                shadowBlur={5}
+              />
+            ))}
         </Layer>
       </Stage>
     </Grid.Column>
