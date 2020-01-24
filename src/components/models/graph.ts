@@ -47,7 +47,7 @@ export class Graph {
             this.db.insert(g, (err, doc) => {
                 if (err) { console.log(err); reject(err) }
                 resolve(doc)
-                this.graphs.push(g)
+                this.graphs.push(doc)
             })
         })
     }
@@ -59,8 +59,10 @@ export class Graph {
         return new Promise((resolve, reject) => {
             if (this.selectedGraph) {
                 this.selectedGraph.nodes.push(node)
+                resolve();
                 this.db.update({ _id: this.selectedGraph && this.selectedGraph._id }, { $push: { nodes: node } }, {}, (err, number) => {
                     if (err) { console.log(err); reject() }
+                    console.log(number)
                     resolve()
                 })
             }
@@ -73,10 +75,12 @@ export class Graph {
     deleteGraph = (graph: GraphObj) => {
         return new Promise((resolve, reject) => {
             if (this.selectedGraph) {
+                console.log(graph)
                 let index = this.graphs.findIndex((object) => this.selectedGraph && this.selectedGraph._id === object._id)
                 this.graphs.splice(index, 1)
-                this.db.remove({ _id: this.selectedGraph }, (err, num) => {
+                this.db.remove({ _id: this.selectedGraph._id }, (err, num) => {
                     if (err) { console.error(err); reject() }
+                    this.selectedGraph = undefined
                     resolve();
                 })
             }

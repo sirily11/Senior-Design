@@ -18,8 +18,9 @@ const style: React.CSSProperties = {
 };
 
 export default function GraphToolArea() {
-  const { graph, update } = useContext(HomePageContext);
-  const [open, setOpen] = useState(false);
+  const { graph, update, showOpenAddNode, setOpenAddNode } = useContext(
+    HomePageContext
+  );
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setheight] = useState(window.innerHeight);
   const [hasUpdate, setHasUpdate] = useState(false);
@@ -29,7 +30,6 @@ export default function GraphToolArea() {
       setWidth(window.innerWidth);
       setheight(window.innerHeight);
       setHasUpdate(true);
-      console.log("re");
     });
   }
 
@@ -50,10 +50,23 @@ export default function GraphToolArea() {
           circular
           disabled={graph.selectedGraph === undefined}
           onClick={() => {
-            setOpen(true);
+            setOpenAddNode(true);
           }}
-        ></Button>
-        <Modal open={true} onClose={() => setOpen(false)}>
+        />
+        <Button
+          icon="trash"
+          circular
+          disabled={graph.selectedGraph === undefined}
+          onClick={async () => {
+            let confirm = window.confirm("Do you want to delete?");
+            if (confirm && graph.selectedGraph) {
+              await graph.deleteGraph(graph.selectedGraph);
+
+              update();
+            }
+          }}
+        />
+        <Modal open={showOpenAddNode} onClose={() => setOpenAddNode(false)}>
           <Modal.Header>
             <div>Add New Node</div>
           </Modal.Header>

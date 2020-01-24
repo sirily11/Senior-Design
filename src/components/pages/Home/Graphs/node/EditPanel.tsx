@@ -36,7 +36,13 @@ const useStyles = makeStyles(theme => ({
 export default function EditPanel() {
   const classes = useStyles();
   const [activeStep, setStep] = useState(0);
-  const { currentNode, updateCurrentNode } = useContext(HomePageContext);
+  const {
+    currentNode,
+    updateCurrentNode,
+    graph,
+    update,
+    setOpenAddNode
+  } = useContext(HomePageContext);
   const [title, setTitle] = useState(currentNode?.title);
   const [color, setColor] = useState(currentNode?.shape?.color);
 
@@ -56,15 +62,17 @@ export default function EditPanel() {
           variant="contained"
           color="primary"
           disabled={title === undefined}
-          onClick={() => {
+          onClick={async () => {
             if (activeStep === 0) {
               let node: NodeObj = {
-                title: title,
-                connection: [],
-                shape: { color: "red", shape: "rect" }
+                ...currentNode,
+                title: title
               };
               updateCurrentNode(node);
             } else if (activeStep === 1) {
+              await graph.addNode(JSON.parse(JSON.stringify(currentNode)));
+              update();
+              setOpenAddNode(false);
             }
             setStep(activeStep + 1);
           }}
