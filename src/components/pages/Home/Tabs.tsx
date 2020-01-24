@@ -9,14 +9,14 @@ import { docs } from "./Introductions/document";
  */
 export default function Tabs() {
   const panes = [
-    // {
-    //   menuItem: "Introduction",
-    //   render: () => (
-    //     <Tab.Pane attached={false}>
-    //       <DocsView docs={docs}></DocsView>
-    //     </Tab.Pane>
-    //   )
-    // },
+    {
+      menuItem: "Introduction",
+      render: () => (
+        <Tab.Pane attached={false}>
+          <DocsView docs={docs}></DocsView>
+        </Tab.Pane>
+      )
+    },
     {
       menuItem: "Graph",
       render: () => (

@@ -25,9 +25,8 @@ export default function Graph() {
   };
   return (
     <Grid.Column width={12}>
-      <Stage width={window.innerWidth / 2} height={400}>
+      <Stage width={window.innerWidth / 2} height={600}>
         <Layer>
-          <Text fontSize={20} text={graph?.selectedGraph?.description ?? ""} />
           {graph?.selectedGraph?.nodes.map((n, index) => renderShape(n, index))}
         </Layer>
       </Stage>
