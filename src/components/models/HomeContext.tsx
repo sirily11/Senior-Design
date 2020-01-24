@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Graph } from "./graph";
+import { Graph, NodeObj } from "./graph";
 
 interface HomePageContext {
   graph: Graph;
+  currentNode: NodeObj;
   update(): void;
+  updateCurrentNode(node: NodeObj): void;
 }
 
 interface HomePageProps {}
@@ -16,7 +18,9 @@ export class HomePageProvider extends Component<
     super(props);
     this.state = {
       graph: new Graph(),
-      update: this.update
+      currentNode: { shape: { color: "red", shape: "rect" }, connection: [] },
+      update: this.update,
+      updateCurrentNode: this.updateCurrentNode
     };
   }
 
@@ -32,6 +36,10 @@ export class HomePageProvider extends Component<
     this.setState({ graph });
   };
 
+  updateCurrentNode = (newNode: NodeObj) => {
+    this.setState({ currentNode: newNode });
+  };
+
   render() {
     return (
       <HomePageContext.Provider value={this.state}>
@@ -43,7 +51,9 @@ export class HomePageProvider extends Component<
 
 const context: HomePageContext = {
   graph: new Graph(),
-  update: () => {}
+  currentNode: { shape: { color: "red", shape: "rect" }, connection: [] },
+  update: () => {},
+  updateCurrentNode: (node: NodeObj) => {}
 };
 
 export const HomePageContext = React.createContext(context);

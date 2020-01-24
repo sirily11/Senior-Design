@@ -12,22 +12,17 @@ export default function Graph() {
     <Grid.Column>
       <Stage width={window.innerWidth / 2} height={400}>
         <Layer>
-          <Text
-            fontSize={20}
-            text={graph.selectedGraph ? graph.selectedGraph.description : ""}
-          />
-          {graph.selectedGraph &&
-            graph.selectedGraph.nodes &&
-            graph.selectedGraph.nodes.map(n => (
-              <Rect
-                x={n.x}
-                y={n.y}
-                width={n.width}
-                height={n.height}
-                fill={Konva.Util.getRandomColor()}
-                shadowBlur={5}
-              />
-            ))}
+          <Text fontSize={20} text={graph?.selectedGraph?.description ?? ""} />
+          {graph?.selectedGraph?.nodes.map(n => (
+            <Rect
+              x={n.x}
+              y={n.y}
+              width={n.width}
+              height={n.height}
+              fill={Konva.Util.getRandomColor()}
+              shadowBlur={5}
+            />
+          ))}
         </Layer>
       </Stage>
     </Grid.Column>
