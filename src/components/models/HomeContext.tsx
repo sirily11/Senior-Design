@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import { Graph } from "./graph";
+import { Graph, NodeObj } from "./graph";
 
 interface HomePageContext {
   graph: Graph;
+  currentNode: NodeObj;
+  showOpenAddNode: boolean;
   update(): void;
+  updateCurrentNode(node: NodeObj): void;
+  setOpenAddNode(value: boolean): void;
 }
 
 interface HomePageProps {}
@@ -16,7 +20,11 @@ export class HomePageProvider extends Component<
     super(props);
     this.state = {
       graph: new Graph(),
-      update: this.update
+      currentNode: { shape: { color: "red", shape: "rect" }, connection: [] },
+      showOpenAddNode: false,
+      update: this.update,
+      updateCurrentNode: this.updateCurrentNode,
+      setOpenAddNode: this.setAddNode
     };
   }
 
@@ -29,7 +37,16 @@ export class HomePageProvider extends Component<
 
   update = () => {
     const { graph } = this.state;
+    console.log(graph.selectedGraph?.nodes);
     this.setState({ graph });
+  };
+
+  setAddNode = (value: boolean) => {
+    this.setState({ showOpenAddNode: value });
+  };
+
+  updateCurrentNode = (newNode: NodeObj) => {
+    this.setState({ currentNode: newNode });
   };
 
   render() {
@@ -43,7 +60,11 @@ export class HomePageProvider extends Component<
 
 const context: HomePageContext = {
   graph: new Graph(),
-  update: () => {}
+  currentNode: { shape: { color: "red", shape: "rect" }, connection: [] },
+  showOpenAddNode: false,
+  update: () => {},
+  updateCurrentNode: (node: NodeObj) => {},
+  setOpenAddNode: (value: boolean) => {}
 };
 
 export const HomePageContext = React.createContext(context);

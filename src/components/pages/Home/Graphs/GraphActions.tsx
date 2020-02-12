@@ -36,7 +36,7 @@ export default function GraphActions() {
             <Button onClick={() => setOpen(true)}>Create new graph</Button>
           }
         >
-          <Modal.Header>Select a Photo</Modal.Header>
+          <Modal.Header>Create New Graph</Modal.Header>
           <Modal.Description style={{ margin: "10px", padding: "10px" }}>
             <JSONSchema
               schemas={schemas}
@@ -49,9 +49,6 @@ export default function GraphActions() {
             ></JSONSchema>
           </Modal.Description>
         </Modal>
-      </Grid.Row>
-      <Grid.Row>
-        <Button primary>Use existing one</Button>
       </Grid.Row>
     </Grid.Column>
   );

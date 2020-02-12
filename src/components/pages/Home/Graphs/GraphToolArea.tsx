@@ -4,6 +4,8 @@ import { Grid, Button, Modal } from "semantic-ui-react";
 import { HomePageContext } from "../../../models/HomeContext";
 import { Schema, Widget } from "../../../utils/JSONSchema/model/Schema";
 import { JSONSchema } from "../../../utils/JSONSchema";
+import { Shape } from "../../../models/graph";
+import GraphNodeEditingPage from "./node/GraphNodeEditingPage";
 
 const style: React.CSSProperties = {
   display: "flex",
@@ -15,40 +17,10 @@ const style: React.CSSProperties = {
   position: "absolute"
 };
 
-const schemas: Schema[] = [
-  {
-    name: "x",
-    label: "X",
-    readonly: false,
-    required: true,
-    widget: Widget.number
-  },
-  {
-    name: "y",
-    label: "Y",
-    readonly: false,
-    required: true,
-    widget: Widget.number
-  },
-  {
-    name: "width",
-    label: "Width",
-    readonly: false,
-    required: true,
-    widget: Widget.number
-  },
-  {
-    name: "height",
-    label: "Height",
-    readonly: false,
-    required: true,
-    widget: Widget.number
-  }
-];
-
 export default function GraphToolArea() {
-  const { graph, update } = useContext(HomePageContext);
-  const [open, setOpen] = useState(false);
+  const { graph, update, showOpenAddNode, setOpenAddNode } = useContext(
+    HomePageContext
+  );
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setheight] = useState(window.innerHeight);
   const [hasUpdate, setHasUpdate] = useState(false);
@@ -58,7 +30,6 @@ export default function GraphToolArea() {
       setWidth(window.innerWidth);
       setheight(window.innerHeight);
       setHasUpdate(true);
-      console.log("re");
     });
   }
 
@@ -79,25 +50,28 @@ export default function GraphToolArea() {
           circular
           disabled={graph.selectedGraph === undefined}
           onClick={() => {
-            setOpen(true);
+            setOpenAddNode(true);
           }}
-        ></Button>
-        <Modal open={open} onClose={() => setOpen(false)}>
+        />
+        <Button
+          icon="trash"
+          circular
+          disabled={graph.selectedGraph === undefined}
+          onClick={async () => {
+            let confirm = window.confirm("Do you want to delete?");
+            if (confirm && graph.selectedGraph) {
+              await graph.deleteGraph(graph.selectedGraph);
+
+              update();
+            }
+          }}
+        />
+        <Modal open={showOpenAddNode} onClose={() => setOpenAddNode(false)}>
+          <Modal.Header>
+            <div>Add New Node</div>
+          </Modal.Header>
           <Modal.Content>
-            <JSONSchema
-              schemas={schemas}
-              url=""
-              onSubmit={async data => {
-                await graph.addNode({
-                  x: data["x"],
-                  y: data["y"],
-                  width: data["width"],
-                  height: data["height"]
-                });
-                update();
-                setOpen(false);
-              }}
-            ></JSONSchema>
+            <GraphNodeEditingPage></GraphNodeEditingPage>
           </Modal.Content>
         </Modal>
       </Grid>

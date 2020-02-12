@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Grid,
   Sidebar,
@@ -9,7 +9,8 @@ import {
   Header,
   GridColumn,
   Divider,
-  Segment
+  Segment,
+  Label
 } from "semantic-ui-react";
 import { JSONSchema } from "../../../utils/JSONSchema";
 import { Schema, Widget } from "../../../utils/JSONSchema/model/Schema";
@@ -19,8 +20,10 @@ import GraphActions from "./GraphActions";
 import Graph from "./Graph";
 import GraphInfo from "./GraphInfo";
 import GraphToolArea from "./GraphToolArea";
+import { HomePageContext } from "../../../models/HomeContext";
 
 export default function GraphPage() {
+  const { graph } = useContext(HomePageContext);
   return (
     <div>
       <Grid>
@@ -32,6 +35,11 @@ export default function GraphPage() {
           </Grid.Row>
         </Segment>
         <Graph></Graph>
+        {graph.selectedGraph && (
+          <Label as="h4" color="blue" attached="bottom">
+            Graph: {graph.selectedGraph?.name}
+          </Label>
+        )}
       </Grid>
       <GraphToolArea></GraphToolArea>
     </div>
