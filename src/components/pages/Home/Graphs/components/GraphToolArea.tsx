@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Rnd } from "react-rnd";
 import { Grid, Button, Modal } from "semantic-ui-react";
-import { HomePageContext } from "../../../models/HomeContext";
-import { Schema, Widget } from "../../../utils/JSONSchema/model/Schema";
-import { JSONSchema } from "../../../utils/JSONSchema";
-import { Shape } from "../../../models/graph";
-import GraphNodeEditingPage from "./node/GraphNodeEditingPage";
+import { HomePageContext } from "../../../../models/HomeContext";
+import { Schema, Widget } from "../../../../utils/JSONSchema/model/Schema";
+import { JSONSchema } from "../../../../utils/JSONSchema";
+import { Shape } from "../../../../models/graph";
+import GraphNodeEditingPage from "../node/GraphNodeEditingPage";
 
 const style: React.CSSProperties = {
   display: "flex",

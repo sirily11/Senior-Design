@@ -28,7 +28,6 @@ export interface NodeObj {
 }
 
 
-
 export class Graph {
     graphs: GraphObj[] = []
     selectedGraph?: GraphObj

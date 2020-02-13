@@ -16,10 +16,10 @@ import { JSONSchema } from "../../../utils/JSONSchema";
 import { Schema, Widget } from "../../../utils/JSONSchema/model/Schema";
 import { Stage, Layer, Rect, Text } from "react-konva";
 import Konva from "konva";
-import GraphActions from "./GraphActions";
-import Graph from "./Graph";
-import GraphInfo from "./GraphInfo";
-import GraphToolArea from "./GraphToolArea";
+import GraphActions from "./components/GraphActions";
+import Graph from "./components/Graph";
+import GraphInfo from "./components/GraphInfo";
+import GraphToolArea from "./components/GraphToolArea";
 import { HomePageContext } from "../../../models/HomeContext";
 
 export default function GraphPage() {

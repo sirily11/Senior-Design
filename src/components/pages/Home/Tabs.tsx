@@ -3,6 +3,7 @@ import { Tab } from "semantic-ui-react";
 import DocsView from "../../utils/docs-generator/DocsView";
 import GraphPage from "./Graphs/GraphPage";
 import { docs } from "./Introductions/document";
+import TemplatePage from "./Template/TemplatePage";
 
 /**
  * Navigation between different pages
@@ -28,7 +29,7 @@ export default function Tabs() {
       menuItem: "Templates",
       render: () => (
         <Tab.Pane attached={false}>
-          <GraphPage></GraphPage>
+         <TemplatePage/>
         </Tab.Pane>
       )
     }

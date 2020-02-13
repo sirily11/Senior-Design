@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { HomePageContext } from "../../../models/HomeContext";
+import { HomePageContext } from "../../../../models/HomeContext";
 import { Grid, Label } from "semantic-ui-react";
 
 export default function GraphInfo() {
