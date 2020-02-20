@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { HomePageContext } from "../../../../models/HomeContext";
 import { Grid, Label } from "semantic-ui-react";
+import { HomePageContext } from "../../../../models/HomepageContext";
 
 export default function GraphInfo() {
   const { graph, update } = useContext(HomePageContext);

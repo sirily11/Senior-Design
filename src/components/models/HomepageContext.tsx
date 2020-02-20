@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Graph, NodeObj } from "./graph";
+import { Graph } from "./graph";
+import { NodeObj } from "./interfaces";
 
 interface HomePageContext {
   graph: Graph;

@@ -20,7 +20,8 @@ import GraphActions from "./components/GraphActions";
 import Graph from "./components/Graph";
 import GraphInfo from "./components/GraphInfo";
 import GraphToolArea from "./components/GraphToolArea";
-import { HomePageContext } from "../../../models/HomeContext";
+import { HomePageContext } from "../../../models/HomepageContext";
+
 
 export default function GraphPage() {
   const { graph } = useContext(HomePageContext);

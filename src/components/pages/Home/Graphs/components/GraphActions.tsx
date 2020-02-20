@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { Grid, Modal, Button } from "semantic-ui-react";
 import { JSONSchema } from "../../../../utils/JSONSchema";
 import { Schema, Widget } from "../../../../utils/JSONSchema/model/Schema";
-import { HomePageContext } from "../../../../models/HomeContext";
-import { GraphObj } from "../../../../models/graph";
+import { HomePageContext } from "../../../../models/HomepageContext";
+
 
 const schemas: Schema[] = [
   {

@@ -13,9 +13,10 @@ import {
   Step,
   StepContent
 } from "@material-ui/core";
-import { Shape, NodeObj, NodeShapeTypes } from "../../../../models/graph";
+
 import { MaterialPicker, ChromePicker } from "react-color";
-import { HomePageContext } from "../../../../models/HomeContext";
+import { HomePageContext } from "../../../../models/HomepageContext";
+import { NodeObj, NodeShapeTypes } from "../../../../models/interfaces";
 
 const useStyles = makeStyles(theme => ({
   root: {

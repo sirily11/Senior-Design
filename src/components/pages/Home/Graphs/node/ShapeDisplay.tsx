@@ -1,6 +1,6 @@
 import React from "react";
-import { Shape, NodeShapeTypes } from "../../../../models/graph";
 import { Stage, Layer, Star, Text, Circle, Rect } from "react-konva";
+import { NodeShapeTypes, Shape } from "../../../../models/interfaces";
 
 /// This file will display the shpae
 /// When user select shape from GraphNodeEditor

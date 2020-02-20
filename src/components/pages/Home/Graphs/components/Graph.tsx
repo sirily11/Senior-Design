@@ -3,8 +3,9 @@ import React, { useContext } from "react";
 import { Stage, Layer, Rect, Text, Circle } from "react-konva";
 import Konva from "konva";
 import { Grid } from "semantic-ui-react";
-import { HomePageContext } from "../../../../models/HomeContext";
-import { NodeShapeTypes, NodeObj } from "../../../../models/graph";
+import { HomePageContext } from "../../../../models/HomepageContext";
+import { NodeObj } from "../../../../models/interfaces";
+
 
 export default function Graph() {
   const { graph } = useContext(HomePageContext);
