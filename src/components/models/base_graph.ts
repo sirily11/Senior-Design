@@ -5,7 +5,7 @@ import { NodeObj, GraphObj, Shape } from "./interfaces";
 
 
 
-export abstract class BaseNode implements NodeObj {
+export class BaseNode implements NodeObj {
     title?: string | undefined
     x?: number | undefined
     y?: number | undefined
@@ -62,9 +62,10 @@ export abstract class BaseGraph {
     /**
      * Create new graph with empty nodes
      */
-    addGraph = (name: string, description: string): Promise<GraphObj> => {
+    addGraph = (name: string, description: string, graph?: GraphObj): Promise<GraphObj> => {
         return new Promise((resolve, reject) => {
-            let g: GraphObj = { name, description, nodes: [] }
+            let g: GraphObj = graph ?? { name, description, nodes: [] }
+            delete g._id
             this.db.insert(g, (err, doc) => {
                 if (err) { console.log(err); reject(err) }
                 resolve(doc)
@@ -81,7 +82,7 @@ export abstract class BaseGraph {
             if (this.selectedGraph) {
                 this.selectedGraph.nodes.push(node)
                 resolve();
-                this.db.update({ _id: this.selectedGraph && this.selectedGraph._id }, { $push: { nodes: node } }, {}, (err, number) => {
+                this.db.update({ _id: this.selectedGraph?._id }, { $push: { nodes: node } }, {}, (err, number) => {
                     if (err) { console.log(err); reject() }
                     console.log(number)
                     resolve()

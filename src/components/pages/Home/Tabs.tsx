@@ -25,11 +25,12 @@ export default function Tabs() {
           <GraphPage></GraphPage>
         </Tab.Pane>
       )
-    }, {
+    },
+    {
       menuItem: "Templates",
       render: () => (
         <Tab.Pane attached={false}>
-         <TemplatePage/>
+          <TemplatePage />
         </Tab.Pane>
       )
     }

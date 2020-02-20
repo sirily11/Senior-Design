@@ -25,7 +25,6 @@ export class TemplatePageProvider extends Component<
 
   update = () => {
     const { graph } = this.state;
-    console.log(graph.selectedGraph?.nodes);
     this.setState({ graph });
   };
 

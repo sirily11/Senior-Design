@@ -1,15 +1,11 @@
 import React, { useContext } from "react";
-
 import { Stage, Layer, Rect, Text, Circle } from "react-konva";
-import Konva from "konva";
-import { Grid } from "semantic-ui-react";
-import { HomePageContext } from "../../../../models/HomepageContext";
 import { NodeObj } from "../../../../models/interfaces";
+import { TemplatePageContext } from "../../../../models/TemplatePageContext";
+import { Card, CardContent } from "@material-ui/core";
+import { CardHeader } from "semantic-ui-react";
 
-
-export default function Graph() {
-  const { graph } = useContext(HomePageContext);
-
+export default function GraphDisplay() {
   const renderShape = (node: NodeObj, index: number) => {
     const x = index * 100;
     const y = index * 100;
@@ -24,14 +20,24 @@ export default function Graph() {
         );
     }
   };
-  
+  const templateContext = useContext(TemplatePageContext);
   return (
-    <Grid.Column width={12}>
+    <div>
       <Stage width={window.innerWidth / 2} height={600}>
         <Layer>
-          {graph?.selectedGraph?.nodes.map((n, index) => renderShape(n, index))}
+          {templateContext.graph.selectedGraph?.nodes.map((n, i) =>
+            renderShape(n, i)
+          )}
         </Layer>
       </Stage>
-    </Grid.Column>
+      <Card>
+        <CardContent>
+          <CardHeader>
+            <h3>{templateContext.graph.selectedGraph?.name}</h3>
+          </CardHeader>
+          <div>{templateContext.graph.selectedGraph?.description}</div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

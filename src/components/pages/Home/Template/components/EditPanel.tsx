@@ -1,59 +1,65 @@
-import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import React, { useContext, useState } from "react";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import StepContent from "@material-ui/core/StepContent";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import { TemplatePageContext } from "../../../../models/TemplatePageContext";
+import {
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
+} from "@material-ui/core";
+import { Divider } from "semantic-ui-react";
+import { HomePageContext } from "../../../../models/HomepageContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%',
+      width: "100%"
     },
     button: {
       marginTop: theme.spacing(1),
-      marginRight: theme.spacing(1),
+      marginRight: theme.spacing(1)
     },
     actionsContainer: {
-      marginBottom: theme.spacing(2),
+      marginBottom: theme.spacing(2)
     },
     resetContainer: {
-      padding: theme.spacing(3),
-    },
-  }),
+      padding: theme.spacing(3)
+    }
+  })
 );
 
 function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
-}
-
-function getStepContent(step: number) {
-  switch (step) {
-    case 0:
-      return `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`;
-    case 1:
-      return 'An ad group contains one or more ads which target a shared set of keywords.';
-    case 2:
-      return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
-    default:
-      return 'Unknown step';
-  }
+  return ["Basic Info", "Select Template", "Final Check"];
 }
 
 export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const templateContext = useContext(TemplatePageContext);
+  const [name, setname] = useState("My graph");
+  const [description, setdescription] = useState("My Description");
+  const homeContext = useContext(HomePageContext);
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    if (activeStep === steps.length - 1) {
+      let g = await templateContext.graph.addGraph(
+        name,
+        description,
+        templateContext.graph.selectedGraph
+      );
+      homeContext.graph.graphs.push(g);
+      templateContext.update();
+    }
+
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
@@ -64,6 +70,74 @@ export default function VerticalLinearStepper() {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  function getStepContent(step: number): JSX.Element {
+    switch (step) {
+      case 0:
+        return (
+          <form>
+            <TextField
+              label="Graph Name"
+              fullWidth
+              value={name}
+              onChange={e => setname(e.target.value)}
+            />
+            <TextField
+              label="Graph Description"
+              rows={3}
+              multiline
+              fullWidth
+              value={description}
+              onChange={e => setdescription(e.target.value)}
+            />
+          </form>
+        );
+      case 1:
+        return (
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">
+              Select your template
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={templateContext.graph.selectedGraph?._id ?? 0}
+              onChange={e => {
+                templateContext.graph.selectGraph(
+                  templateContext.graph.graphs.filter(
+                    v => v._id === e.target.value
+                  )[0]
+                );
+                templateContext.update();
+              }}
+            >
+              {templateContext.graph.graphs.map(g => (
+                <MenuItem value={g._id} key={g._id}>
+                  {g.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        );
+
+      default:
+        return (
+          <div>
+            <span>Your config</span>
+            <Divider></Divider>
+            <div>
+              <b>Title: </b>
+              {name}
+              <br />
+              <b>Description: </b>
+              {description} <br />
+              <b>Selected Template: </b>
+              {templateContext.graph.selectedGraph?.name}
+            </div>
+          </div>
+        );
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -88,7 +162,7 @@ export default function VerticalLinearStepper() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
                   </Button>
                 </div>
               </div>
