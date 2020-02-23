@@ -22,7 +22,7 @@ const schemas: Schema[] = [
 ];
 
 export default function GraphActions() {
-  const { graph, update } = useContext(HomePageContext);
+  const { template, update } = useContext(HomePageContext);
   const [open, setOpen] = useState(false);
 
   return (
@@ -32,16 +32,16 @@ export default function GraphActions() {
           open={open}
           onClose={() => setOpen(false)}
           trigger={
-            <Button onClick={() => setOpen(true)}>Create new graph</Button>
+            <Button onClick={() => setOpen(true)}>Create New Template</Button>
           }
         >
-          <Modal.Header>Create New Graph</Modal.Header>
+          <Modal.Header>Create New Template</Modal.Header>
           <Modal.Description style={{ margin: "10px", padding: "10px" }}>
             <JSONSchema
               schemas={schemas}
               url=""
               onSubmit={async data => {
-                await graph.addGraph(data["name"], data["description"]);
+                await template.addTemplate(data["name"], data["description"]);
                 update();
                 setOpen(false);
               }}

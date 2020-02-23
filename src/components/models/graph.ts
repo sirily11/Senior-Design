@@ -1,14 +1,23 @@
 import { number } from "@lingui/core";
 import nedb from "nedb";
 
-export type NodeShapeTypes = "circle" | "rect" | "star"
+export type NodeShapeTypes = "circle" | "rect" | "star" | "Template 1"
 export interface Shape {
 
     color: string;
     shape: NodeShapeTypes
 }
 
+
+
 export interface GraphObj {
+    _id?: string;
+    name: string;
+    description: string
+    nodes: NodeObj[]
+}
+
+export interface TemplateObj{
     _id?: string;
     name: string;
     description: string
@@ -26,7 +35,6 @@ export interface NodeObj {
     // connected to objects
     connection: NodeObj[]
 }
-
 
 export class Graph {
     graphs: GraphObj[] = []
@@ -112,3 +120,89 @@ export class Graph {
     }
 
 }
+
+export class Template {
+    templates: TemplateObj[] = []
+    selectedTemplate?: TemplateObj
+    db: Nedb<TemplateObj>
+
+    constructor() {
+        this.db = new nedb({ filename: "template.db", autoload: true });
+    }
+
+    /**
+     * Create new template with empty nodes
+     */
+    addTemplate = (name: string, description: string): Promise<TemplateObj> => {
+        return new Promise((resolve, reject) => {
+            let g: TemplateObj = { name, description, nodes: [] }
+            this.db.insert(g, (err, doc) => {
+                if (err) { console.log(err); reject(err) }
+                resolve(doc)
+                this.templates.push(doc)
+            })
+        })
+    }
+
+    /**
+     * Add node to selected template
+     */
+    addNode = (node: NodeObj) => {
+        return new Promise((resolve, reject) => {
+            if (this.selectedTemplate) {
+                this.selectedTemplate.nodes.push(node)
+                resolve();
+                this.db.update({ _id: this.selectedTemplate && this.selectedTemplate._id }, { $push: { nodes: node } }, {}, (err, number) => {
+                    if (err) { console.log(err); reject() }
+                    console.log(number)
+                    resolve()
+                })
+            }
+        })
+    }
+
+    /**
+     * Delete whole template
+     */
+    deleteTemplate = (template: TemplateObj) => {
+        return new Promise((resolve, reject) => {
+            if (this.selectedTemplate) {
+                console.log(template)
+                let index = this.templates.findIndex((object) => this.selectedTemplate && this.selectedTemplate._id === object._id)
+                this.templates.splice(index, 1)
+                this.db.remove({ _id: this.selectedTemplate._id }, (err, num) => {
+                    if (err) { console.error(err); reject() }
+                    this.selectedTemplate = undefined
+                    resolve();
+                })
+            }
+        })
+    }
+
+    /**
+     * Select graph.
+     * Call this function when user select template from templates
+     */
+    selectTemplate = (template: TemplateObj) => {
+        this.selectedTemplate = template;
+    }
+
+    /**
+     * Get all templates from database and put it into templates
+     */
+    getAllTemplate = (): Promise<TemplateObj[]> => {
+        return new Promise((resolve, reject) => {
+            console.log(this.db)
+            this.db.find({}, (err, docs) => {
+                console.log(docs)
+                if (err) {
+                    console.log(err)
+                    reject(err)
+                }
+                resolve(docs)
+            })
+        })
+    }
+
+}
+
