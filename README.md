@@ -1,5 +1,5 @@
 # React With Electron
-[![Build Status](https://travis-ci.com/sirily11/electron-react-template.svg?branch=master)](https://travis-ci.com/sirily11/electron-react-template)
+![Node.js CI](https://github.com/sirily11/Senior-Design/workflows/Node.js%20CI/badge.svg)
 
 # This is the template using electron and react together with Typescript
 You can use this template to build any react-electron app.
