@@ -3,10 +3,11 @@ import { Menu as MenuI } from "./docs_generator";
 import { Grid, Menu, Segment } from "semantic-ui-react";
 import ReactMarkdown from "react-markdown";
 import "semantic-ui-css/semantic.min.css";
-import { docs } from "../../pages/Home/Introductions/document";
+import { intro, safety } from "../../pages/Home/Introductions/document";
 
 interface Props {
-  docs: MenuI[];
+  intro: MenuI[];
+  safety: MenuI[];
 }
 
 interface State {
@@ -20,7 +21,7 @@ export default class DocsView extends Component<Props, State> {
   }
 
   componentWillMount(){
-    this.setState({selectedMenu : docs[0]})
+    this.setState({selectedMenu : intro[0]})
   }
 
 
@@ -31,7 +32,20 @@ export default class DocsView extends Component<Props, State> {
       <Grid>
         <Grid.Column computer={5} mobile={16}>
           <Menu vertical>
-            {this.props.docs.map(menu => {
+            {this.props.intro.map(menu => {
+              return (
+                <Menu.Item
+                  name={menu.name}
+                  active={selectedMenu === menu}
+                  onClick={(e, { name }) => {
+                    this.setState({ selectedMenu: menu });
+                  }}
+                />
+              );
+            })}
+          </Menu>
+          <Menu vertical>
+            {this.props.safety.map(menu => {
               return (
                 <Menu.Item
                   name={menu.name}

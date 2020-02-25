@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Tab } from "semantic-ui-react";
 import DocsView from "../../utils/docs-generator/DocsView";
 import GraphPage from "./Graphs/GraphPage";
-import { docs } from "./Introductions/document";
+import { intro, safety} from "./Introductions/document";
 import TemplatePage from "./Template/TemplatePage";
 
 /**
@@ -14,9 +14,10 @@ export default function Tabs() {
       menuItem: "Introduction",
       render: () => (
         <Tab.Pane attached={false}>
-          <DocsView docs={docs}></DocsView>
+          <DocsView intro={intro}
+                    safety={safety}></DocsView>
         </Tab.Pane>
-      )
+      ),
     },
     {
       menuItem: "Graph",

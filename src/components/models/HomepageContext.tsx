@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Graph } from "./graph";
 import { NodeObj } from "./interfaces";
+import { TemplateGraph } from "./template_graph";
 
 interface HomePageContext {
   graph: Graph;
+  template: TemplateGraph;
   currentNode: NodeObj;
   showOpenAddNode: boolean;
   update(): void;
@@ -21,6 +23,7 @@ export class HomePageProvider extends Component<
     super(props);
     this.state = {
       graph: new Graph(),
+      template: new TemplateGraph(),
       currentNode: { shape: { color: "red", shape: "rect" }, connection: [] },
       showOpenAddNode: false,
       update: this.update,
@@ -34,12 +37,19 @@ export class HomePageProvider extends Component<
     let gs = await graph.getAllGraph();
     graph.graphs = gs;
     this.setState({ graph });
+
+    let template = this.state.template;
+    this.setState({ template });
   }
 
   update = () => {
     const { graph } = this.state;
     console.log(graph.selectedGraph?.nodes);
     this.setState({ graph });
+
+    const { template } = this.state;
+    console.log(template.selectedGraph?.nodes);
+    this.setState({ template });
   };
 
   setAddNode = (value: boolean) => {
@@ -61,6 +71,7 @@ export class HomePageProvider extends Component<
 
 const context: HomePageContext = {
   graph: new Graph(),
+  template: new TemplateGraph(),
   currentNode: { shape: { color: "red", shape: "rect" }, connection: [] },
   showOpenAddNode: false,
   update: () => {},
