@@ -1,31 +1,23 @@
-name: Testing
+name: Node.js CI
 
-on:
-  push:
-    paths:
-      - "*"
-      - "!*.md"
-      - "!*.yml"
-    branches:
-      - master
+on: [push]
+
 jobs:
-  test:
-    name: Testing
+  build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x]
+        node-version: [8.x, 10.x, 12.x]
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Using ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: yarn install, and test
-        run: |
-          yarn
-          yarn  test
+      - run: yarn install
+      - run: yarn test
+      - run: yarn build
         env:
-          CI: false
+          CI: true
