@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import { Grid } from "semantic-ui-react";
 import TemplateDisplay from "./TemplateDisplay";
 import EditPanel from "./EditPanel";
-import { NodeObj } from "../../../../models/interfaces";
+import { NodeObj } from "../../../../models/graphs/interfaces";
 import { HomePageContext } from "../../../../models/HomepageContext";
 
 /// This file will be the display for the graph node editing

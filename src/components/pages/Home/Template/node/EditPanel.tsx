@@ -15,7 +15,7 @@ import {
   StepContent
 } from "@material-ui/core";
 import { HomePageContext } from "../../../../models/HomepageContext";
-import { NodeObj, NodeShapeTypes } from "../../../../models/interfaces";
+import { NodeObj } from "../../../../models/graphs/interfaces";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,7 +39,6 @@ export default function EditPanel() {
   const classes = useStyles();
   const [activeStep, setStep] = useState(0);
   const {
-    currentNode,
     updateCurrentNode,
     template,
     update,

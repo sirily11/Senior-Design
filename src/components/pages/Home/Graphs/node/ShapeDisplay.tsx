@@ -1,6 +1,6 @@
 import React from "react";
 import { Stage, Layer, Star, Text, Circle, Rect } from "react-konva";
-import { NodeShapeTypes, Shape } from "../../../../models/interfaces";
+import { Shape } from "../../../../models/graphs/interfaces";
 
 /// This file will display the shpae
 /// When user select shape from GraphNodeEditor
@@ -11,33 +11,11 @@ const x = 50;
 const y = 50;
 
 export default function ShapeDisplay(props: { shape: Shape | undefined }) {
-  const renderShape = (shape: NodeShapeTypes | undefined) => {
-    switch (shape) {
-      case "circle":
-        return (
-          <Circle
-            radius={width}
-            x={x}
-            y={y}
-            fill={props.shape?.color ?? "green"}
-          ></Circle>
-        );
-      default:
-        return (
-          <Rect
-            width={width}
-            height={height}
-            x={x}
-            y={y}
-            fill={props.shape?.color ?? "green"}
-          />
-        );
-    }
-  };
+ 
 
   return (
     <Stage width={400} height={400}>
-      <Layer>{renderShape(props.shape?.shape)}</Layer>
+      {/* <Layer>{renderShape(props.shape?.shape)}</Layer> */}
     </Stage>
   );
 }

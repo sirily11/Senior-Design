@@ -16,7 +16,7 @@ import {
 
 import { MaterialPicker, ChromePicker } from "react-color";
 import { HomePageContext } from "../../../../models/HomepageContext";
-import { NodeObj, NodeShapeTypes } from "../../../../models/interfaces";
+import { NodeObj } from "../../../../models/graphs/interfaces";
 
 const useStyles = makeStyles(theme => ({
   root: {

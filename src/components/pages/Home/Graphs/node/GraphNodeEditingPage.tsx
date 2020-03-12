@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import { Grid } from "semantic-ui-react";
 import ShapeDisplay from "./ShapeDisplay";
 import EditPanel from "./EditPanel";
-import { NodeObj } from "../../../../models/interfaces";
+import { NodeObj } from "../../../../models/graphs/interfaces";
 import { HomePageContext } from "../../../../models/HomepageContext";
 
 /// This file will be the display for the graph node editing
@@ -15,12 +15,12 @@ interface Props {
 }
 
 export default function GraphNodeEditingPage(props: Props) {
-  const { currentNode } = useContext(HomePageContext);
+  // const { currentNode } = useContext(HomePageContext);
 
   return (
     <Grid celled="internally">
       <Grid.Column width="6">
-        <ShapeDisplay shape={currentNode?.shape}></ShapeDisplay>
+        {/* <ShapeDisplay shape={currentNode?.shape}></ShapeDisplay> */}
       </Grid.Column>
       <Grid.Column width="10">
         <EditPanel></EditPanel>

@@ -11,7 +11,7 @@ import {
 } from "react-konva";
 import { Grid } from "semantic-ui-react";
 import { HomePageContext } from "../../../../models/HomepageContext";
-import { NodeObj } from "../../../../models/interfaces";
+import { NodeObj } from "../../../../models/graphs/interfaces";
 
 //TODO: Need to fix nodes so that the lines hit the shapes a little more accurately.
 //TODO: Add text editing to shapes so that Users can add text to their nodes.

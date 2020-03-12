@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TemplateGraph } from "./template_graph";
+import { TemplateGraph } from "./graphs/template_graph";
 
 interface TemplatePageState {
   graph: TemplateGraph;

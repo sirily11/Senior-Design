@@ -11,7 +11,7 @@ import {
   Arrow
 } from "react-konva";
 
-import { NodeShapeTypes, Shape } from "../../../../models/interfaces";
+import { Shape } from "../../../../models/graphs/interfaces";
 
 export default function TemplateDisplay(props: { shape: Shape | undefined }) {
   const circleRadius = 40;

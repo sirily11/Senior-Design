@@ -8,8 +8,6 @@ describe("Test post context", () => {
    * Nothing except progress bar should be shown
    */
   test("get posts while loading", () => {
-    const { container } = render(<HomePage></HomePage>);
-    const display = container.querySelector("#home") as Element;
-    // expect(display.textContent).toBe("Hello World")
+    
   });
 });
