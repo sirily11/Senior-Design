@@ -21,6 +21,7 @@ export interface GraphObj {
 }
 
 export interface NodeObj {
+    id: string;
     nodeType: NodeTypes;
     title?: string;
     // connected to objects

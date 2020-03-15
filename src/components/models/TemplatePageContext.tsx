@@ -6,22 +6,21 @@ interface TemplatePageState {
   update(): void;
 }
 
-interface TemplatePageProps {}
+interface TemplatePageProps { }
 
 export class TemplatePageProvider extends Component<
   TemplatePageProps,
   TemplatePageState
-> {
+  > {
   constructor(props: TemplatePageProps) {
     super(props);
     this.state = {
       graph: new TemplateGraph(),
-
       update: this.update
     };
   }
 
-  async componentWillMount() {}
+  async componentWillMount() { }
 
   update = () => {
     const { graph } = this.state;
@@ -40,7 +39,7 @@ export class TemplatePageProvider extends Component<
 const context: TemplatePageState = {
   graph: new TemplateGraph(),
 
-  update: () => {}
+  update: () => { }
 };
 
 export const TemplatePageContext = React.createContext(context);

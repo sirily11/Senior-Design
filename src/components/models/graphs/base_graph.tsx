@@ -1,18 +1,29 @@
+import React from "react"
 import nedb from "nedb";
 import { NodeObj, GraphObj, Shape, NodeTypes } from "./interfaces";
 import rect from "react";
-import { Layer, Rect } from "react-konva";
+import { Layer, Rect, Text, Group, Line } from "react-konva";
 
-
+/**
+ * How much height you want for each node
+ */
 const height: number = 100;
+/**
+ * How much width you want for each node
+ */
 const width: number = 100;
+/**
+ * How much space you want for each node
+ */
+const padding_param = 1.2
 
 export class BaseNode implements NodeObj {
+    id: string;
     nodeType = NodeTypes.basenode
     /**
      * Children
      */
-    connection: NodeObj[];
+    connection: NodeObj[] = [];
     /**
      * x position
      */
@@ -21,18 +32,18 @@ export class BaseNode implements NodeObj {
     /**
      * parent node
      */
-    parent: NodeObj | undefined;
+    parent: BaseNode | undefined;
     /**
      * Y position
      */
-    level: number;
+    level?: number;
     description: string;
 
     constructor(args: NodeObj) {
+        this.id = args.id;
         this.level = this.getLevel()
-        this.order = args.order;
-        this.parent = args.parent
-        this.connection = args.connection
+        this.order = this.getOrder();
+        this.parent = args.parent as BaseNode
         this.description = args.description
         this.title = args.title
     }
@@ -50,15 +61,42 @@ export class BaseNode implements NodeObj {
         return currentLevel;
     }
 
+    getOrder(): number {
+        if (this.parent) {
+            let i = 0;
+            for (let node of this.parent.connection) {
+                if (node === this) {
+                    return i;
+                }
+                i += 1
+            }
+        }
+        return 0
+    }
+
+    getXPos(): number {
+        let relativePos = (this.order ?? 0) * width * padding_param
+        if (this.parent) {
+            return relativePos + this.parent.getXPos() * 2
+        }
+        return relativePos
+
+    }
+
+    getYPos(): number {
+
+        return (this.level ?? 0) * height * padding_param
+    }
+
     /**
      * Connect to another node object
      * @param node a node object
      */
-    async connect(node: BaseNode): Promise<void> {
+    connect(node: BaseNode): void {
         this.connection.push(node)
         node.parent = this
         node.level = node.getLevel()
-        console.log(node.level)
+        node.order = node.getOrder()
     }
 
     /**
@@ -78,7 +116,16 @@ export class BaseNode implements NodeObj {
     }
 
     render(): rect.ReactElement<any, string | ((props: any) => rect.ReactElement<any, string | any | (new (props: any) => rect.Component<any, any, any>)> | null) | (new (props: any) => rect.Component<any, any, any>)> {
-        return <Rect x={this.order * width} y={this.level * height}></Rect>
+        const x: number = this.getXPos()
+        const y: number = this.getYPos()
+
+
+        return <Group>
+            <Rect x={x} y={y} height={height} width={width} fill={"red"} />
+            <Text x={x + 10} y={y + height / 2} text={this.title ?? "None"} />
+            {this.parent && <Line points={[this.parent.getXPos() + width / 2, this.parent.getYPos() + height, x, y]} stroke="black" />}
+        </Group>
+
     }
 
 
@@ -100,6 +147,20 @@ export class BaseGraphObject implements GraphObj {
         this.name = args.name
         this.description = args.description;
         this.nodes = args.nodes.map((n) => this._getNode(n));
+        for (let node of this.nodes) {
+            let fromNode = args.nodes.filter((n) => n.id === node.id)
+            if (fromNode.length > 0) {
+                for (let c of fromNode[0].connection) {
+                    let foundNodes = this.nodes.filter((n) => n.id === c.id)
+                    if (foundNodes.length > 0) {
+                        let connectToNode: BaseNode = foundNodes[0]
+                        node.connect(connectToNode)
+                    }
+
+                }
+            }
+
+        }
     }
 
     /**
@@ -139,7 +200,7 @@ export abstract class BaseGraphPage {
     /**
      * Select current display graph
      */
-    selectedGraph?: GraphObj
+    selectedGraph?: BaseGraphObject
     /**
      * Database instance
      */
@@ -170,7 +231,7 @@ export abstract class BaseGraphPage {
     addNode = (node: NodeObj) => {
         return new Promise((resolve, reject) => {
             if (this.selectedGraph) {
-                this.selectedGraph.nodes.push(node)
+                // this.selectedGraph.
                 resolve();
                 this.db.update({ _id: this.selectedGraph?._id }, { $push: { nodes: node } }, {}, (err, number) => {
                     if (err) { console.log(err); reject() }
@@ -203,7 +264,7 @@ export abstract class BaseGraphPage {
      * Select graph.
      * Call this function when user select graph from graphs
      */
-    selectGraph = (graph: GraphObj) => {
+    selectGraph = (graph: BaseGraphObject) => {
         this.selectedGraph = graph;
     }
 

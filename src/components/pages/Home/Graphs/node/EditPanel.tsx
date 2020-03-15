@@ -45,7 +45,6 @@ export default function EditPanel() {
     setOpenAddNode
   } = useContext(HomePageContext);
   const [title, setTitle] = useState(currentNode?.title);
-  const [color, setColor] = useState(currentNode?.shape?.color);
 
   const buttons = (
     <div className={classes.actionsContainer}>
@@ -65,11 +64,8 @@ export default function EditPanel() {
           disabled={title === undefined}
           onClick={async () => {
             if (activeStep === 0) {
-              let node: NodeObj = {
-                ...currentNode,
-                title: title
-              };
-              updateCurrentNode(node);
+
+              // updateCurrentNode(node);
             } else if (activeStep === 1) {
               await graph.addNode(JSON.parse(JSON.stringify(currentNode)));
               update();
@@ -101,7 +97,7 @@ export default function EditPanel() {
         <Grid.Column>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Shape</InputLabel>
-            <Select
+            {/* <Select
               value={currentNode.shape.shape}
               fullWidth
               onChange={e => {
@@ -115,7 +111,7 @@ export default function EditPanel() {
                   {s}
                 </MenuItem>
               ))}
-            </Select>
+            </Select> */}
           </FormControl>
         </Grid.Column>
       </Grid.Row>
@@ -126,14 +122,14 @@ export default function EditPanel() {
     <Grid style={{ paddingLeft: 20, width: "100%" }}>
       <GridRow>
         <Grid.Column>
-          <ChromePicker
+          {/* <ChromePicker
             color={currentNode?.shape?.color}
             onChange={v => {
-              var newNode: NodeObj = { ...currentNode };
-              newNode.shape.color = v.hex;
-              updateCurrentNode(newNode);
+              // var newNode: NodeObj = { ...currentNode };
+              // newNode.shape.color = v.hex;
+              // updateCurrentNode(newNode);
             }}
-          ></ChromePicker>
+          ></ChromePicker> */}
         </Grid.Column>
       </GridRow>
     </Grid>

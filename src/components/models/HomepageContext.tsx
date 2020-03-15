@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { Graph } from "./graphs/graph";
 import { NodeObj } from "./graphs/interfaces";
 import { TemplateGraph } from "./graphs/template_graph";
-import { BaseGraphPage } from "./graphs/base_graph";
+import { BaseGraphPage, BaseNode } from "./graphs/base_graph";
 
 interface HomePageContext {
+  currentNode?: BaseNode
   graph: Graph;
   template: TemplateGraph;
   showOpenAddNode: boolean;
@@ -23,6 +24,7 @@ export class HomePageProvider extends Component<
   constructor(props: HomePageProps) {
     super(props);
     this.state = {
+      currentNode: undefined,
       graph: new Graph(),
       template: new TemplateGraph(),
       showOpenAddNode: false,
@@ -57,7 +59,7 @@ export class HomePageProvider extends Component<
   };
 
   updateCurrentNode = (newNode: NodeObj) => {
-    
+
   };
 
   render() {

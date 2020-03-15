@@ -1,24 +1,29 @@
 import React, { useContext } from "react";
-import { Stage, Layer, Rect, Text, Circle } from "react-konva";
+import { Stage, Layer, Rect, Circle } from "react-konva";
 import { NodeObj } from "../../../../models/graphs/interfaces";
 import { TemplatePageContext } from "../../../../models/TemplatePageContext";
 import { Card, CardContent } from "@material-ui/core";
 import { CardHeader } from "semantic-ui-react";
 
 export default function GraphDisplay() {
-  const renderShape = (node: NodeObj, index: number) => {
-    const x = index * 100;
-    const y = index * 100;
-  
+
+
   const templateContext = useContext(TemplatePageContext);
   return (
     <div>
       <Stage width={window.innerWidth / 2} height={600}>
-        <Layer>
-          {templateContext.graph.selectedGraph?.nodes.map((n, i) =>
-            renderShape(n, i)
-          )}
-        </Layer>
+        {/* <Layer>
+          <Rect
+            x={0}
+            y={0}
+            width={50}
+            height={50}
+            fill={"red"}
+            shadowBlur={5}
+
+          />
+        </Layer> */}
+        {templateContext.graph.selectedGraph?.render()}
       </Stage>
       <Card>
         <CardContent>
