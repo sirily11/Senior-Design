@@ -50,13 +50,18 @@ export default function VerticalLinearStepper() {
   const homeContext = useContext(HomePageContext);
 
   const handleNext = async () => {
+
     if (activeStep === steps.length - 1) {
-      let g = await templateContext.graph.addGraph(
-        name,
-        description,
-        templateContext.graph.selectedGraph
-      );
-      // homeContext.graph.graphs.push(g);
+      if (templateContext.graph.selectedGraph) {
+        let g = await templateContext.graph.addGraph(
+          name,
+          description,
+          templateContext.graph.selectedGraph
+        );
+        homeContext.graph.graphs.push(g);
+      }
+
+
       templateContext.update();
     }
 

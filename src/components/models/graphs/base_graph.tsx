@@ -23,7 +23,7 @@ export class BaseNode implements NodeObj {
     /**
      * Children
      */
-    connection: NodeObj[] = [];
+    connection: BaseNode[] = [];
     /**
      * x position
      */
@@ -38,6 +38,7 @@ export class BaseNode implements NodeObj {
      */
     level?: number;
     description: string;
+    nodeObject: NodeObj
 
     constructor(args: NodeObj) {
         this.id = args.id;
@@ -46,6 +47,7 @@ export class BaseNode implements NodeObj {
         this.parent = args.parent as BaseNode
         this.description = args.description
         this.title = args.title
+        this.nodeObject = args;
     }
 
     /**
@@ -74,15 +76,55 @@ export class BaseNode implements NodeObj {
         return 0
     }
 
+    save(): NodeObj {
+        return this.nodeObject;
+    }
+
+    /**
+     * Get number of leaves of the node.
+     * If the node has no child, return 1
+     * @param node Node
+     */
+    _getNumberOfLeaves(node: BaseNode): number {
+        if (node.connection.length === 0) {
+            return 1;
+        }
+
+
+        let total = 0;
+        for (let child of node.connection) {
+            total += this._getNumberOfLeaves(child)
+        }
+        return total;
+    }
+
+    /**
+     * Get x position of the node
+     */
     getXPos(): number {
         let relativePos = (this.order ?? 0) * width * padding_param
+
+        // root position
+        // if (!this.parent) {
+        //     let numberOflLeaves = this._getNumberOfLeaves(this)
+        //     return (numberOflLeaves / 2) * (width) * padding_param
+        // }
+
         if (this.parent) {
             return relativePos + this.parent.getXPos() * 2
         }
+        // if (this.parent) {
+        //     let offset = this.parent.connection.length === 1 ? 0 : (width / this.parent.connection.length)
+        //     return relativePos + this.parent.getXPos() - offset
+        // }
+
         return relativePos
 
     }
 
+    /**
+     * Get y position of the node
+     */
     getYPos(): number {
 
         return (this.level ?? 0) * height * padding_param
@@ -115,6 +157,9 @@ export class BaseNode implements NodeObj {
 
     }
 
+    /**
+     * Render the node
+     */
     render(): rect.ReactElement<any, string | ((props: any) => rect.ReactElement<any, string | any | (new (props: any) => rect.Component<any, any, any>)> | null) | (new (props: any) => rect.Component<any, any, any>)> {
         const x: number = this.getXPos()
         const y: number = this.getYPos()
@@ -123,7 +168,7 @@ export class BaseNode implements NodeObj {
         return <Group>
             <Rect x={x} y={y} height={height} width={width} fill={"red"} />
             <Text x={x + 10} y={y + height / 2} text={this.title ?? "None"} />
-            {this.parent && <Line points={[this.parent.getXPos() + width / 2, this.parent.getYPos() + height, x, y]} stroke="black" />}
+            {this.parent && <Line points={[this.parent.getXPos() + width / 2, this.parent.getYPos() + height, x + width / 2, y]} stroke="black" />}
         </Group>
 
     }
@@ -175,9 +220,8 @@ export class BaseGraphObject implements GraphObj {
     }
 
 
-    save = (): GraphObj => {
-
-        return { name: this.name, _id: this._id, nodes: this.nodes, description: this.description }
+    save = (name?: string, description?: string): GraphObj => {
+        return { name: name ?? this.name, _id: this._id, nodes: this.nodes.map((n) => n.save()), description: description ?? this.description }
     }
 
     render(): rect.ReactElement<any, string | ((props: any) => rect.ReactElement<any, string | any | (new (props: any) => rect.Component<any, any, any>)> | null) | (new (props: any) => rect.Component<any, any, any>)> {
@@ -211,16 +255,21 @@ export abstract class BaseGraphPage {
     }
 
     /**
-     * Create new graph with empty nodes
+     * Create new graph
      */
-    addGraph = (name: string, description: string, graph?: GraphObj): Promise<GraphObj> => {
+    addGraph = (name: string, description: string, graph?: BaseGraphObject): Promise<BaseGraphObject> => {
+
         return new Promise((resolve, reject) => {
-            let g: GraphObj = graph ?? { name, description, nodes: [] }
-            delete g._id
-            this.db.insert(g, (err, doc) => {
+            let data: GraphObj = graph ? graph.save(name, description) : { "name": name, "description": description, "nodes": [] }
+            delete data._id;
+            this.db.insert(data, (err, doc) => {
                 if (err) { console.log(err); reject(err) }
-                resolve(doc)
-                this.graphs.push(new BaseGraphObject(doc))
+                else {
+                    let newGraph = new BaseGraphObject(doc)
+                    resolve(newGraph)
+                    this.graphs.push(newGraph)
+                }
+
             })
         })
     }

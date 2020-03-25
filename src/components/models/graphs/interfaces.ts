@@ -6,6 +6,10 @@ export enum NodeTypes {
 
 }
 
+export enum ConnectionTypes {
+    basic = "BASIC"
+}
+
 
 export interface Shape {
     color: string;
@@ -24,6 +28,7 @@ export interface NodeObj {
     id: string;
     nodeType: NodeTypes;
     title?: string;
+    connectionType?: ConnectionTypes
     // connected to objects
     connection: NodeObj[];
     parent?: NodeObj

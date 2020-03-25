@@ -37,5 +37,5 @@ export default function Tabs() {
     }
   ];
 
-  return <Tab menu={{ secondary: true }} panes={panes} activeIndex={2} />;
+  return <Tab menu={{ secondary: true }} panes={panes} />;
 }
