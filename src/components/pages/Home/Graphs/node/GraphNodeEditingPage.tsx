@@ -20,7 +20,7 @@ export default function GraphNodeEditingPage(props: Props) {
   return (
     <Grid celled="internally">
       <Grid.Column width="6">
-        {/* <ShapeDisplay shape={currentNode?.shape}></ShapeDisplay> */}
+        <ShapeDisplay />
       </Grid.Column>
       <Grid.Column width="10">
         <EditPanel></EditPanel>

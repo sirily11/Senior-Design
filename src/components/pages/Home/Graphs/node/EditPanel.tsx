@@ -13,10 +13,12 @@ import {
   Step,
   StepContent
 } from "@material-ui/core";
+import { v4 as uuidv4 } from "uuid";
 
 import { MaterialPicker, ChromePicker } from "react-color";
 import { HomePageContext } from "../../../../models/HomepageContext";
-import { NodeObj } from "../../../../models/graphs/interfaces";
+import { NodeObj, NodeTypes } from "../../../../models/graphs/interfaces";
+import { BaseNode } from "../../../../models/graphs/base_graph";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,6 +42,7 @@ export default function EditPanel() {
   const {
     currentNode,
     updateCurrentNode,
+    graph: currentSelectedGraph,
     graph,
     update,
     setOpenAddNode
@@ -64,11 +67,14 @@ export default function EditPanel() {
           disabled={title === undefined}
           onClick={async () => {
             if (activeStep === 0) {
-
               // updateCurrentNode(node);
             } else if (activeStep === 1) {
-              await graph.addNode(JSON.parse(JSON.stringify(currentNode)));
+              let newNode = graph.selectedGraph?.addNode(currentNode);
+              console.log(currentNode);
               update();
+              if (newNode) {
+                updateCurrentNode(newNode);
+              }
               setOpenAddNode(false);
             }
             setStep(activeStep + 1);
@@ -87,9 +93,13 @@ export default function EditPanel() {
         <Grid.Column>
           <TextField
             label="Node Text"
-            value={title}
+            value={title ?? ""}
             fullWidth
-            onChange={e => setTitle(e.target.value)}
+            onChange={e => {
+              setTitle(e.target.value);
+              currentNode.title = e.target.value;
+              updateCurrentNode(currentNode);
+            }}
           />
         </Grid.Column>
       </GridRow>
@@ -97,21 +107,33 @@ export default function EditPanel() {
         <Grid.Column>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Shape</InputLabel>
-            {/* <Select
-              value={currentNode.shape.shape}
+            <Select
+              value={currentNode.nodeType}
               fullWidth
               onChange={e => {
-                var newNode: NodeObj = { ...currentNode };
-                newNode.shape.shape = e.target.value as NodeShapeTypes;
-                updateCurrentNode(newNode);
+                let nodeTypes: NodeTypes = e.target.value as NodeTypes;
+                let node: BaseNode | undefined = undefined;
+
+                if (nodeTypes === NodeTypes.basenode) {
+                  node = new BaseNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                }
+                if (node) {
+                  updateCurrentNode(node);
+                }
               }}
             >
-              {["circle", "rect", "star"].map(s => (
-                <MenuItem value={s} id={s}>
+              {Object.values(NodeTypes).map(s => (
+                <MenuItem value={s} id={s} key={s}>
                   {s}
                 </MenuItem>
               ))}
-            </Select> */}
+            </Select>
           </FormControl>
         </Grid.Column>
       </Grid.Row>
@@ -122,14 +144,29 @@ export default function EditPanel() {
     <Grid style={{ paddingLeft: 20, width: "100%" }}>
       <GridRow>
         <Grid.Column>
-          {/* <ChromePicker
-            color={currentNode?.shape?.color}
-            onChange={v => {
-              // var newNode: NodeObj = { ...currentNode };
-              // newNode.shape.color = v.hex;
-              // updateCurrentNode(newNode);
-            }}
-          ></ChromePicker> */}
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Parent</InputLabel>
+            <Select
+              value={currentNode.parent?.id ?? -1}
+              fullWidth
+              onChange={e => {
+                let id = e.target.value as string;
+                let foundNodes = currentSelectedGraph.selectedGraph?.nodes.filter(
+                  n => n.id === id
+                );
+                if (foundNodes) {
+                  currentNode.parent = foundNodes[0];
+                }
+                updateCurrentNode(currentNode);
+              }}
+            >
+              {currentSelectedGraph.selectedGraph?.nodes.map(s => (
+                <MenuItem value={s.id} key={s.title}>
+                  {s.title}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid.Column>
       </GridRow>
     </Grid>
@@ -145,7 +182,7 @@ export default function EditPanel() {
         </StepContent>
       </Step>
       <Step>
-        <StepLabel>Set Up Color</StepLabel>
+        <StepLabel>Set Up Parent</StepLabel>
         <StepContent>
           {step2}
           {buttons}

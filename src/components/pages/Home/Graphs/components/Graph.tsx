@@ -6,12 +6,11 @@ import { Grid } from "semantic-ui-react";
 import { HomePageContext } from "../../../../models/HomepageContext";
 import { NodeObj } from "../../../../models/graphs/interfaces";
 
-
 export default function Graph() {
   const { graph } = useContext(HomePageContext);
 
   return (
-    <Grid.Column width={12}>
+    <Grid.Column width={12} id="graph">
       <Stage width={window.innerWidth / 2} height={600}>
         <Layer>
           {graph?.selectedGraph?.nodes.map((n, index) => n.render())}
