@@ -1,13 +1,6 @@
 import React, { useContext } from "react";
 import {
   Grid,
-  Sidebar,
-  Menu,
-  Icon,
-  Button,
-  Modal,
-  Header,
-  GridColumn,
   Divider,
   Segment,
   Label

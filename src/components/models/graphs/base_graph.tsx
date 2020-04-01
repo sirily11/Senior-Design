@@ -2,8 +2,8 @@ import React from "react"
 import nedb from "nedb";
 import { NodeObj, GraphObj, Shape, NodeTypes } from "./interfaces";
 import rect from "react";
-import { Layer, Rect, Text, Group, Line } from "react-konva";
-
+import { Layer, Rect, Text, Group, Line} from "react-konva";
+import { SafetyFeatureNode, GeneralAssumptionNode, ArgumentNode, GeneralEnvironmentNode, GeneralJustificationNode, SubGoalNode, SpecificAssumptionNode, SpecificJustificationNode } from "./template";
 /**
  * How much height you want for each node
  */
@@ -218,6 +218,64 @@ export class BaseGraphObject implements GraphObj {
                 return new BaseNode(node)
         }
     }
+
+    generalAssumptionChangeDescription(name: string, nodeType: string){
+        for(let node of this.nodes){
+            if(node.nodeType == nodeType){
+                node.description = name;
+            }
+        }
+    }
+
+    safetyFeatureChangeDescription(name: string, nodeType: string){
+        for(let node of this.nodes){
+            if(node.nodeType == nodeType){
+                node.description = name;
+            }
+        }
+    }
+
+    generalEnvironmentChangeDescription(name: string, nodeType: string){
+        for(let node of this.nodes){
+            if(node.nodeType == nodeType){
+                node.description = name;
+            }
+        }
+    }
+
+    generalJustificationChangeDescription(name: string, nodeType: string){
+        for(let node of this.nodes){
+            if(node.nodeType == nodeType){
+                node.description = name;
+            }
+        }
+    }
+
+    subGoalChangeDescription(name: string, nodeType: string){
+        for(let node of this.nodes){
+            if(node.nodeType == nodeType){
+                node.description = name;
+            }
+        }
+    }
+
+    specificAssumptionChangeDescription(name: string, nodeType: string){
+        for(let node of this.nodes){
+            if(node.nodeType == nodeType){
+                node.description = name;
+            }
+        }
+    }
+
+    specificJustificationChangeDescription(name: string, nodeType: string){
+        for(let node of this.nodes){
+            if(node.nodeType == nodeType){
+                node.description = name;
+            }
+        }
+    }
+
+
 
 
     save = (name?: string, description?: string): GraphObj => {

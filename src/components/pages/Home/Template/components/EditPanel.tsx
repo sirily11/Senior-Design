@@ -17,6 +17,9 @@ import {
 } from "@material-ui/core";
 import { Divider } from "semantic-ui-react";
 import { HomePageContext } from "../../../../models/HomepageContext";
+import { TemplateObject, SafetyFeatureNode } from "../../../../models/graphs/template";
+import { NodeObj, NodeTypes } from '../../../../models/graphs/interfaces';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +50,14 @@ export default function VerticalLinearStepper() {
   const templateContext = useContext(TemplatePageContext);
   const [name, setname] = useState("My graph");
   const [description, setdescription] = useState("My Description");
+  const [safetyFeature, setSafetyFeature] = useState("My Safety Feature")
+  const [generalAssumption, setGeneralAssumption] = useState("My General Assumption")
+  const [generalEnvironment, setGeneralEnvironment] = useState("My General Environment")
+  const [generalJustification, setGeneralJustification] = useState("My General Justification")
+  const [goal, setSubGoal] = useState("My Sub-Goal")
+  const [specificAssumption, setSpecificAssumption] = useState("My Specific Assumption")
+  const [specificJustification, setSpecificJustification] = useState("My Specific Justification")
+
   const homeContext = useContext(HomePageContext);
 
   const handleNext = async () => {
@@ -95,6 +106,154 @@ export default function VerticalLinearStepper() {
               value={description}
               onChange={e => setdescription(e.target.value)}
             />
+
+            <Divider></Divider>
+
+            <InputLabel id="demo-simple-select-label">Safety Feature</InputLabel>
+            <Select
+              label="Safety Feature"
+              fullWidth
+              value={safetyFeature}
+              onChange={e => {
+                templateContext.graph.selectedGraph?.safetyFeatureChangeDescription(e.target.value as string, "SAFETY_FEATURE")
+                setSafetyFeature(e.target.value as string)
+                templateContext.update();
+              }}
+            >
+                {["Kill-Switch", "Auxotrophy", "Degredation"].map(s => (
+                  <MenuItem value={s} id={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+
+            </Select>
+
+          <Divider></Divider>
+
+          <InputLabel id="demo-simple-select-label">General Assumption</InputLabel>
+            <Select
+             label="General Assumption"
+             fullWidth
+             value={generalAssumption}
+             onChange={e => {
+              templateContext.graph.selectedGraph?.generalAssumptionChangeDescription(e.target.value as string, "GENERAL_ASSUMPTION")
+              setGeneralAssumption(e.target.value as string)
+              templateContext.update();
+            }}>
+                {["All threats to the environment have been identified.", "All threats to animal life have been identified.", "All threats to plant life have been identified.", 
+                "It is possible to detect evolution or mutation resulting in undesired or unwanted behavior."].map(s => (
+                  <MenuItem value={s} id={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+
+            </Select>
+
+          <Divider></Divider>
+
+          <InputLabel id="demo-simple-select-label">General Environment</InputLabel>
+            <Select
+             label="General Environment"
+             fullWidth
+             value={generalEnvironment}
+              onChange={e => {
+              templateContext.graph.selectedGraph?.generalEnvironmentChangeDescription(e.target.value as string, "GENERAL_ENVIRONMENT")
+              setGeneralEnvironment(e.target.value as string)
+              templateContext.update();
+            }}>
+                {["Only in the lab", "An industrial bioreactor", "The general environment", 
+                "Soil", "The water table", "The atmosphere", "Freshwater rivers or lakes", 
+              "Saltwater lakes or oceans", "A human gut"].map(s => (
+                  <MenuItem value={s} id={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+
+            </Select>
+
+          <Divider></Divider>
+
+          <InputLabel id="demo-simple-select-label">General Justification</InputLabel>
+            <Select
+             label="General Justification"
+             fullWidth
+             value={generalJustification}
+             onChange={e => {
+              templateContext.graph.selectedGraph?.generalJustificationChangeDescription(e.target.value as string, "GENERAL_JUSTIFICATION")
+              setGeneralJustification(e.target.value as string)
+              templateContext.update();
+            }}>
+                {["Our organisims only function in fresh water.", "Our organisms only function in salt water.", "Our organisms are not intended for release into the environment.", 
+                "Our organisms are designed to live within the human gut.", "Only the outputs from our organisms are intended for environmental application."].map(s => (
+                  <MenuItem value={s} id={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+
+            </Select>
+
+          <Divider></Divider>
+
+          <InputLabel id="demo-simple-select-label">Sub-Goal</InputLabel>
+            <Select
+             label="Sub-Goal"
+             fullWidth
+             value={goal}
+             onChange={e => {
+              templateContext.graph.selectedGraph?.subGoalChangeDescription(e.target.value as string, "SUB_GOAL")
+              setSubGoal(e.target.value as string)
+              templateContext.update();
+            }}>
+                {["Our kill-switch operates effectively and when intended.", 
+                "Our kill-switch operates safely.", "Our kill-switch operates securely and is robust to external attacks."].map(s => (
+                  <MenuItem value={s} id={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+
+            </Select>
+
+          <Divider></Divider>
+
+          <InputLabel id="demo-simple-select-label">Specific Assumption</InputLabel>
+            <Select
+             label="Specific Assumption"
+             fullWidth
+             value={specificAssumption}
+             onChange={e => {
+              templateContext.graph.selectedGraph?.specificAssumptionChangeDescription(e.target.value as string, "SPECIFIC_ASSUMPTION")
+              setSpecificAssumption(e.target.value as string)
+              templateContext.update();
+            }}>
+                {["Our lab has adequate physical security.", "Everyone on our team has proper safety training.",
+                 "Our organisms and their outputs will not be used except for their intended application."].map(s => (
+                  <MenuItem value={s} id={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+
+            </Select>
+
+          <Divider></Divider>
+
+          <InputLabel id="demo-simple-select-label">Specific Justification</InputLabel>
+            <Select
+             label="Specific Justification"
+             fullWidth
+             value={specificJustification}
+             onChange={e => {
+              templateContext.graph.selectedGraph?.specificJustificationChangeDescription(e.target.value as string, "SPECIFIC_JUSTIFICATION")
+              setSpecificJustification(e.target.value as string)
+              templateContext.update();
+            }}>
+                {["Our organisms could evolve and exhibit unintended or undesirable behavior.", 
+                "Malicious actors could attempt to alter our organisms behavior."].map(s => (
+                  <MenuItem value={s} id={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+
+            </Select>
           </form>
         );
       case 1:
@@ -122,7 +281,9 @@ export default function VerticalLinearStepper() {
                 </MenuItem>
               ))}
             </Select>
+          
           </FormControl>
+
         );
 
       default:

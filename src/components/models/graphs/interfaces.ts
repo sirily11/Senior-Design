@@ -2,8 +2,21 @@ import react, { ReactElement } from 'react';
 
 
 export enum NodeTypes {
-    basenode = "BASENODE"
-
+    basenode = "BASENODE",
+    goal = "GOAL",
+    strategy = "STRATEGY",
+    solution = "SOLUTION",
+    context = "CONTEXT",
+    justification = "JUSTIFICATION",
+    assumption = "ASSUMPTION",
+    safetyFeature = "SAFETY_FEATURE",
+    generalAssumption = "GENERAL_ASSUMPTION",
+    argument = "ARGUMENT",
+    generalEnvironment = "GENERAL_ENVIRONMENT",
+    generalJustification = "GENERAL_JUSTIFICATION",
+    subGoal = "SUB_GOAL",
+    specificAssumption = "SPECIFIC_ASSUMPTION",
+    specificJustification = "SPECIFIC_JUSTIFICATION"
 }
 
 export enum ConnectionTypes {

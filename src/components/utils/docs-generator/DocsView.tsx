@@ -8,6 +8,7 @@ import { intro, safety } from "../../pages/Home/Introductions/document";
 interface Props {
   intro: MenuI[];
   safety: MenuI[];
+  acknowledgement: MenuI[];
 }
 
 interface State {
@@ -46,6 +47,19 @@ export default class DocsView extends Component<Props, State> {
           </Menu>
           <Menu vertical>
             {this.props.safety.map(menu => {
+              return (
+                <Menu.Item
+                  name={menu.name}
+                  active={selectedMenu === menu}
+                  onClick={(e, { name }) => {
+                    this.setState({ selectedMenu: menu });
+                  }}
+                />
+              );
+            })}
+          </Menu>
+          <Menu vertical>
+            {this.props.acknowledgement.map(menu => {
               return (
                 <Menu.Item
                   name={menu.name}
