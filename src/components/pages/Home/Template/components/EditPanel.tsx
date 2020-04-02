@@ -60,8 +60,6 @@ export default function VerticalLinearStepper() {
         );
         homeContext.graph.graphs.push(g);
       }
-
-
       templateContext.update();
     }
 
