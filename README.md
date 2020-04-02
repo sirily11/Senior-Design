@@ -1,6 +1,18 @@
 # React With Electron
 ![Node.js CI](https://github.com/sirily11/Senior-Design/workflows/Node.js%20CI/badge.svg)
 
+## Usage
+> Make sure you have installed [yarn](https://yarnpkg.com/getting-started)
+
+First run
+```bash
+yarn install
+```
+Then run
+```bash
+yarn start
+```
+
 # This is the template using electron and react together with Typescript
 You can use this template to build any react-electron app.
 It has material-ui as UI framework,  axios for http requests,  jest for testing and
