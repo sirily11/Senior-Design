@@ -1,30 +1,36 @@
 import React, { Component } from "react";
 import { Graph } from "./graphs/graph";
-import { NodeObj } from "./graphs/interfaces";
+import { NodeObj, NodeTypes } from "./graphs/interfaces";
 import { TemplateGraph } from "./graphs/template_graph";
-import { BaseGraphPage, BaseNode } from "./graphs/base_graph";
+import { BaseGraphPage } from "./graphs/base_graph";
+import { v4 as uuidv4 } from "uuid";
+import BaseNode from "./graphs/base_node";
 
 interface HomePageContext {
-  currentNode?: BaseNode
-  graph: Graph;
+  currentNode: BaseNode;
   template: TemplateGraph;
   showOpenAddNode: boolean;
-  currentSelectedGraph?: BaseGraphPage;
+  graph: BaseGraphPage;
   update(): void;
-  updateCurrentNode(node: NodeObj): void;
+  updateCurrentNode(node: BaseNode): void;
   setOpenAddNode(value: boolean): void;
 }
 
-interface HomePageProps { }
+interface HomePageProps {}
 
 export class HomePageProvider extends Component<
   HomePageProps,
   HomePageContext
-  > {
+> {
   constructor(props: HomePageProps) {
     super(props);
     this.state = {
-      currentNode: undefined,
+      currentNode: new BaseNode({
+        nodeType: NodeTypes.basenode,
+        description: "",
+        connection: [],
+        id: uuidv4()
+      }),
       graph: new Graph(),
       template: new TemplateGraph(),
       showOpenAddNode: false,
@@ -46,11 +52,9 @@ export class HomePageProvider extends Component<
 
   update = () => {
     const { graph } = this.state;
-    console.log(graph.selectedGraph?.nodes);
     this.setState({ graph });
 
     const { template } = this.state;
-    console.log(template.selectedGraph?.nodes);
     this.setState({ template });
   };
 
@@ -58,8 +62,8 @@ export class HomePageProvider extends Component<
     this.setState({ showOpenAddNode: value });
   };
 
-  updateCurrentNode = (newNode: NodeObj) => {
-
+  updateCurrentNode = (newNode: BaseNode) => {
+    this.setState({ currentNode: newNode });
   };
 
   render() {
@@ -74,11 +78,16 @@ export class HomePageProvider extends Component<
 const context: HomePageContext = {
   graph: new Graph(),
   template: new TemplateGraph(),
-
+  currentNode: new BaseNode({
+    nodeType: NodeTypes.basenode,
+    description: "",
+    connection: [],
+    id: "0"
+  }),
   showOpenAddNode: false,
-  update: () => { },
-  updateCurrentNode: (node: NodeObj) => { },
-  setOpenAddNode: (value: boolean) => { }
+  update: () => {},
+  updateCurrentNode: (node: NodeObj) => {},
+  setOpenAddNode: (value: boolean) => {}
 };
 
 export const HomePageContext = React.createContext(context);

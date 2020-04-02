@@ -14,10 +14,9 @@ export default function Tabs() {
       menuItem: "Introduction",
       render: () => (
         <Tab.Pane attached={false}>
-          <DocsView intro={intro}
-            safety={safety}></DocsView>
+          <DocsView intro={intro} safety={safety}></DocsView>
         </Tab.Pane>
-      ),
+      )
     },
     {
       menuItem: "Graph",

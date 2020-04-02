@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Stage, Layer, Star, Text, Circle, Rect } from "react-konva";
 import { Shape } from "../../../../models/graphs/interfaces";
+import { HomePageContext } from "../../../../models/HomepageContext";
 
 /// This file will display the shpae
 /// When user select shape from GraphNodeEditor
@@ -10,12 +11,11 @@ const height = 40;
 const x = 50;
 const y = 50;
 
-export default function ShapeDisplay(props: { shape: Shape | undefined }) {
- 
-
+export default function ShapeDisplay() {
+  const { currentNode } = useContext(HomePageContext);
   return (
     <Stage width={400} height={400}>
-      {/* <Layer>{renderShape(props.shape?.shape)}</Layer> */}
+      <Layer>{currentNode?.render(true)}</Layer>
     </Stage>
   );
 }

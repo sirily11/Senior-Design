@@ -1,6 +1,6 @@
-import { BaseGraphPage, BaseNode, BaseGraphObject } from './base_graph';
-import { NodeObj, NodeTypes, GraphObj } from './interfaces';
-
+import { BaseGraphPage, BaseGraphObject } from './base_graph';
+import { NodeObj, NodeTypes } from './interfaces';
+import BaseNode from './base_node';
 
 /**
  * Predefined graph

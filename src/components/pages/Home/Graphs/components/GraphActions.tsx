@@ -28,6 +28,21 @@ export default function GraphActions() {
   return (
     <Grid.Column computer={6}>
       <Grid.Row style={{ paddingBottom: 10 }}>
+        <Button
+          style={{ marginBottom: 10 }}
+          onClick={async () => {
+            const a = document.createElement("a");
+            let graphs = await graph.getAllGraph();
+            var file = new Blob([JSON.stringify(graphs.map(g => g.save()))], {
+              type: "json"
+            });
+            a.href = URL.createObjectURL(file);
+            a.download = "output.json";
+            a.click();
+          }}
+        >
+          Export Database
+        </Button>
         <Modal
           open={open}
           onClose={() => setOpen(false)}

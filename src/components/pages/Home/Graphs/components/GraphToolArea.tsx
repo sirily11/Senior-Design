@@ -5,6 +5,8 @@ import { Schema, Widget } from "../../../../utils/JSONSchema/model/Schema";
 import { JSONSchema } from "../../../../utils/JSONSchema";
 import GraphNodeEditingPage from "../node/GraphNodeEditingPage";
 import { HomePageContext } from "../../../../models/HomepageContext";
+import { Tooltip } from "@material-ui/core";
+import jsPDF from "jspdf";
 
 const style: React.CSSProperties = {
   display: "flex",
@@ -44,27 +46,50 @@ export default function GraphToolArea() {
       }}
     >
       <Grid columns={4}>
-        <Button
-          icon="add"
-          circular
-          disabled={graph.selectedGraph === undefined}
-          onClick={() => {
-            setOpenAddNode(true);
-          }}
-        />
-        <Button
-          icon="trash"
-          circular
-          disabled={graph.selectedGraph === undefined}
-          onClick={async () => {
-            let confirm = window.confirm("Do you want to delete?");
-            if (confirm && graph.selectedGraph) {
-              await graph.deleteGraph(graph.selectedGraph);
+        <Tooltip title="Add Node">
+          <Button
+            icon="add"
+            circular
+            disabled={graph.selectedGraph === undefined}
+            onClick={() => {
+              setOpenAddNode(true);
+            }}
+          />
+        </Tooltip>
+        <Tooltip title="Delete Graph">
+          <Button
+            icon="trash"
+            circular
+            disabled={graph.selectedGraph === undefined}
+            onClick={async () => {
+              let confirm = window.confirm("Do you want to delete?");
+              if (confirm && graph.selectedGraph) {
+                await graph.deleteGraph(graph.selectedGraph);
 
-              update();
-            }
-          }}
-        />
+                update();
+              }
+            }}
+          />
+        </Tooltip>
+        <Tooltip title="Export to pdf">
+          <Button
+            icon="file pdf outline"
+            circular
+            disabled={graph.selectedGraph === undefined}
+            onClick={async () => {
+              let doc = new jsPDF();
+              let graph = document.getElementById("graph");
+              if (graph) {
+                console.log(graph);
+                doc.fromHTML(graph, 15, 15, {
+                  width: "550px",
+                  height: "550px"
+                });
+                doc.save("try.pdf");
+              }
+            }}
+          />
+        </Tooltip>
         <Modal open={showOpenAddNode} onClose={() => setOpenAddNode(false)}>
           <Modal.Header>
             <div>Add New Node</div>
