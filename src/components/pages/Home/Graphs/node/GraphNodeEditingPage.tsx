@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function GraphNodeEditingPage(props: Props) {
-  // const { currentNode } = useContext(HomePageContext);
+  const { showOpenAddNode } = useContext(HomePageContext);
 
   return (
     <Grid celled="internally">
@@ -23,7 +23,7 @@ export default function GraphNodeEditingPage(props: Props) {
         <ShapeDisplay />
       </Grid.Column>
       <Grid.Column width="10">
-        <EditPanel></EditPanel>
+        {showOpenAddNode && <EditPanel></EditPanel>}
       </Grid.Column>
     </Grid>
   );

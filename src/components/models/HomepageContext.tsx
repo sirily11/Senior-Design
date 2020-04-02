@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Graph } from "./graphs/graph";
 import { NodeObj, NodeTypes } from "./graphs/interfaces";
 import { TemplateGraph } from "./graphs/template_graph";
-import { BaseGraphPage, BaseNode } from "./graphs/base_graph";
+import { BaseGraphPage } from "./graphs/base_graph";
 import { v4 as uuidv4 } from "uuid";
+import BaseNode from "./graphs/base_node";
 
 interface HomePageContext {
   currentNode: BaseNode;

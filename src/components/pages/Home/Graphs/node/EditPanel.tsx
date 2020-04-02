@@ -18,7 +18,16 @@ import { v4 as uuidv4 } from "uuid";
 import { MaterialPicker, ChromePicker } from "react-color";
 import { HomePageContext } from "../../../../models/HomepageContext";
 import { NodeObj, NodeTypes } from "../../../../models/graphs/interfaces";
-import { BaseNode } from "../../../../models/graphs/base_graph";
+import BaseNode from "../../../../models/graphs/base_node";
+import {
+  JustificationNode,
+  AssumptionNode
+} from "../../../../models/graphs/gsn";
+import {
+  GoalNode,
+  SolutionNode,
+  ContextNode
+} from "../../../../models/graphs/gsn";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,6 +56,7 @@ export default function EditPanel() {
     update,
     setOpenAddNode
   } = useContext(HomePageContext);
+
   const [title, setTitle] = useState(currentNode?.title);
 
   const buttons = (
@@ -116,6 +126,46 @@ export default function EditPanel() {
 
                 if (nodeTypes === NodeTypes.basenode) {
                   node = new BaseNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                } else if (nodeTypes === NodeTypes.goal) {
+                  node = new GoalNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                } else if (nodeTypes === NodeTypes.solution) {
+                  node = new SolutionNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                } else if (nodeTypes === NodeTypes.context) {
+                  node = new ContextNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                } else if (nodeTypes === NodeTypes.justification) {
+                  node = new JustificationNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                } else if (nodeTypes === NodeTypes.assumption) {
+                  node = new AssumptionNode({
                     id: uuidv4(),
                     connection: [],
                     nodeType: nodeTypes,

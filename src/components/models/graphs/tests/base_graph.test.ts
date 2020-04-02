@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import { BaseGraphObject, BaseNode } from "../base_graph";
+import { BaseGraphObject } from "../base_graph";
 import { GraphObj, NodeTypes, NodeObj } from "../interfaces";
+import BaseNode from "../base_node";
 
 
 describe("Test base node", () => {
