@@ -14,7 +14,7 @@ jobs:
       - name: Build
         run: docker-compose run build
 
-  build:
+  build-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
