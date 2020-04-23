@@ -18,8 +18,10 @@ services:
     image: "react"
     build: ./
     command: "yarn start"
+    environment: 
+      - CI=true 
     ports:
-      - 3003:3000
+      - 3000:3000
     volumes:
       - "./src:/home/projects/src"
       - "./public:/home/projects/public"
