@@ -5,19 +5,11 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [8.x, 10.x, 12.x]
-
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: yarn install
-      - run: yarn test
-      - run: yarn build
-        env:
-          CI: true
+      - name: Build Docker
+        run: docker-compose build
+      - name: Test
+        run: docker-compose run test
+      - name: Build
+        run: docker-compose run build

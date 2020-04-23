@@ -15,10 +15,33 @@ services:
 
   react:
     container_name: react-container
+    image: "react"
     build: ./
     command: "yarn start"
     ports:
       - 3003:3000
+    volumes:
+      - "./src:/home/projects/src"
+      - "./public:/home/projects/public"
+      - "./tsconfig.json:/home/projects/tsconfig.json"
+  
+  test:
+    container_name: react-test
+    image: react
+    build: ./
+    command: "yarn test"
+    environment: 
+      - CI="true"
+    volumes:
+      - "./src:/home/projects/src"
+      - "./public:/home/projects/public"
+      - "./tsconfig.json:/home/projects/tsconfig.json"    
+  build:
+    container_name: react-container
+    container_name: react-test
+    image: react
+    build: ./
+    command: "yarn build"
     volumes:
       - "./src:/home/projects/src"
       - "./public:/home/projects/public"
