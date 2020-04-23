@@ -13,14 +13,3 @@ jobs:
         run: docker-compose run test
       - name: Build
         run: docker-compose run build
-
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build Docker
-        run: docker-compose build
-      - name: Test
-        run: docker-compose run test
-      - name: Build
-        run: docker-compose run build
