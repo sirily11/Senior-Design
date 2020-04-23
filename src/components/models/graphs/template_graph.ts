@@ -54,4 +54,23 @@ export class TemplateGraph extends BaseGraphPage {
         ];
         this.selectedGraph = this.graphs[0];
     }
+
+    /**
+ * Create new graph
+ */
+    addGraph = (name: string, description: string, graph?: BaseGraphObject): Promise<BaseGraphObject> => {
+
+        return new Promise((resolve, reject) => {
+            let data: GraphObj = graph ? graph.save(name, description) : { "name": name, "description": description, "nodes": [] }
+            delete data._id;
+            this.db.insert(data, (err, doc) => {
+                if (err) { console.log(err); reject(err) }
+                else {
+                    let newGraph = new BaseGraphObject(doc)
+                    resolve(newGraph)
+                }
+
+            })
+        })
+    }
 }
