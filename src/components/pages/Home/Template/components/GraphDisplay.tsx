@@ -11,7 +11,7 @@ export default function GraphDisplay() {
   const templateContext = useContext(TemplatePageContext);
   return (
     <div>
-      <Stage width={window.innerWidth / 2} height={600}>
+      <Stage width={window.innerWidth} height={600}>
         {/* <Layer>
           <Rect
             x={0}

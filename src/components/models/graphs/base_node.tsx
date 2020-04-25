@@ -22,9 +22,9 @@ export const padding_param = 1.2;
 
 export const radius = 50;
 
-export const radiusX = 75;
+export const radiusX = 100;
 
-export const radiusY = 37;
+export const radiusY = 45;
 
 export default class BaseNode implements NodeObj {
   id: string;

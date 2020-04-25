@@ -6,10 +6,6 @@ import { HomePageContext } from "../../../../models/HomepageContext";
 /// This file will display the shpae
 /// When user select shape from GraphNodeEditor
 ///
-const width = 40;
-const height = 40;
-const x = 50;
-const y = 50;
 
 export default function ShapeDisplay() {
   const { currentNode } = useContext(HomePageContext);
