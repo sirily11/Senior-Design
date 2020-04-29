@@ -50,6 +50,7 @@ export class HomePageProvider extends Component<
     this.setState({ template });
   }
 
+
   update = () => {
     const { graph } = this.state;
     this.setState({ graph });

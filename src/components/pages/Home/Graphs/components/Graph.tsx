@@ -17,7 +17,7 @@ export default function Graph() {
 
   return (
     <Grid.Column width={12} id="graph" style={{ cursor: "grab" }}>
-      <Stage width={window.innerWidth / 2} height={600}>
+      <Stage width={window.innerWidth - 200} height={600}>
         {graph?.selectedGraph?.render({
           onClick: node => {
             updateCurrentNode(node);

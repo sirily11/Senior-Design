@@ -266,7 +266,6 @@ export abstract class BaseGraphPage {
   addNode = (node: NodeObj) => {
     return new Promise((resolve, reject) => {
       if (this.selectedGraph) {
-        // this.selectedGraph.
         resolve();
         this.db.update(
           { _id: this.selectedGraph?._id },
