@@ -38,7 +38,7 @@ export interface GraphObj {
 }
 
 export interface NodeObj {
-    id: string;
+    id?: string;
     nodeType: NodeTypes;
     title?: string;
     connectionType?: ConnectionTypes

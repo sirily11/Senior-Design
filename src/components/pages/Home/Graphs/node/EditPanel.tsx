@@ -80,10 +80,10 @@ export default function EditPanel() {
               // updateCurrentNode(node);
             } else if (activeStep === 1) {
               let newNode = graph.selectedGraph?.addNode(currentNode);
-              console.log(currentNode);
               update();
               if (newNode) {
                 updateCurrentNode(newNode);
+                graph.addNode(newNode.save() as NodeObj);
               }
               setOpenAddNode(false);
             }

@@ -13,7 +13,16 @@ import {
 } from "./gsn";
 import BaseNode from "./base_node";
 import { ActionTypes } from "./base_node";
-import { ArgumentNode, SafetyFeatureNode, GeneralAssumptionNode, GeneralEnvironmentNode, GeneralJustificationNode, SpecificAssumptionNode, SpecificJustificationNode, SubGoalNode } from "./template";
+import {
+  ArgumentNode,
+  SafetyFeatureNode,
+  GeneralAssumptionNode,
+  GeneralEnvironmentNode,
+  GeneralJustificationNode,
+  SpecificAssumptionNode,
+  SpecificJustificationNode,
+  SubGoalNode
+} from "./template";
 
 /**
  * Graph object.
@@ -95,70 +104,69 @@ export class BaseGraphObject implements GraphObj {
     }
   }
 
-  generalAssumptionChangeDescription(name: string, nodeType: string){
-    for(let node of this.nodes){
-        if(node.nodeType == nodeType){
-            node.description = name;
-        }
-    }
-}
-
-safetyFeatureChangeDescription(name: string, nodeType: string){
-    for(let node of this.nodes){
-        if(node.nodeType == nodeType){
-            node.description = name;
-        }
-    }
-}
-
-generalEnvironmentChangeDescription(name: string, nodeType: string){
-    for(let node of this.nodes){
-        if(node.nodeType == nodeType){
-            node.description = name;
-        }
-    }
-}
-
-generalJustificationChangeDescription(name: string, nodeType: string){
-    for(let node of this.nodes){
-        if(node.nodeType == nodeType){
-            node.description = name;
-        }
-    }
-}
-
-subGoalChangeDescription(name: string, nodeType: string){
-    for(let node of this.nodes){
-        if(node.nodeType == nodeType){
-            node.description = name;
-        }
-    }
-}
-
-specificAssumptionChangeDescription(name: string, nodeType: string){
-    for(let node of this.nodes){
-        if(node.nodeType == nodeType){
-            node.description = name;
-        }
-    }
-}
-
-specificJustificationChangeDescription(name: string, nodeType: string){
-    for(let node of this.nodes){
-        if(node.nodeType == nodeType){
-            node.description = name;
-        }
-    }
-}
-
-argumentChangeDescription(name: string, nodeType: string){
-  for(let node of this.nodes){
-      if(node.nodeType == nodeType){
-          node.description = name;
+  generalAssumptionChangeDescription(name: string, nodeType: string) {
+    for (let node of this.nodes) {
+      if (node.nodeType === nodeType) {
+        node.description = name;
       }
+    }
   }
-}
 
+  safetyFeatureChangeDescription(name: string, nodeType: string) {
+    for (let node of this.nodes) {
+      if (node.nodeType === nodeType) {
+        node.description = name;
+      }
+    }
+  }
+
+  generalEnvironmentChangeDescription(name: string, nodeType: string) {
+    for (let node of this.nodes) {
+      if (node.nodeType === nodeType) {
+        node.description = name;
+      }
+    }
+  }
+
+  generalJustificationChangeDescription(name: string, nodeType: string) {
+    for (let node of this.nodes) {
+      if (node.nodeType === nodeType) {
+        node.description = name;
+      }
+    }
+  }
+
+  subGoalChangeDescription(name: string, nodeType: string) {
+    for (let node of this.nodes) {
+      if (node.nodeType === nodeType) {
+        node.description = name;
+      }
+    }
+  }
+
+  specificAssumptionChangeDescription(name: string, nodeType: string) {
+    for (let node of this.nodes) {
+      if (node.nodeType === nodeType) {
+        node.description = name;
+      }
+    }
+  }
+
+  specificJustificationChangeDescription(name: string, nodeType: string) {
+    for (let node of this.nodes) {
+      if (node.nodeType === nodeType) {
+        node.description = name;
+      }
+    }
+  }
+
+  argumentChangeDescription(name: string, nodeType: string) {
+    for (let node of this.nodes) {
+      if (node.nodeType === nodeType) {
+        node.description = name;
+      }
+    }
+  }
 
   /**
    * Add a node and then return a new node
@@ -175,7 +183,9 @@ argumentChangeDescription(name: string, nodeType: string){
     });
   }
 
-  save = (name?: string, description?: string): GraphObj => {
+  /// return the graph object
+  save = (name?: string, description?: string) => {
+    //@ts-ignore
     return {
       name: name ?? this.name,
       _id: this._id,
@@ -232,18 +242,19 @@ export abstract class BaseGraphPage {
     graph?: BaseGraphObject
   ): Promise<BaseGraphObject> => {
     return new Promise((resolve, reject) => {
+      //@ts-ignore
       let data: GraphObj = graph
         ? graph.save(name, description)
         : { name: name, description: description, nodes: [] };
       delete data._id;
+      console.log(data);
       this.db.insert(data, (err, doc) => {
         if (err) {
           console.log(err);
           reject(err);
         } else {
-          let newGraph = new BaseGraphObject(doc);
-          resolve(newGraph);
-          this.graphs.push(newGraph);
+          //@ts-ignore
+          resolve(graph);
         }
       });
     });
@@ -255,7 +266,6 @@ export abstract class BaseGraphPage {
   addNode = (node: NodeObj) => {
     return new Promise((resolve, reject) => {
       if (this.selectedGraph) {
-        // this.selectedGraph.
         resolve();
         this.db.update(
           { _id: this.selectedGraph?._id },
@@ -311,12 +321,13 @@ export abstract class BaseGraphPage {
   getAllGraph = (): Promise<BaseGraphObject[]> => {
     return new Promise((resolve, reject) => {
       this.db.find({}, (err, docs) => {
-        console.log(docs);
         if (err) {
           console.log(err);
           reject(err);
         }
         resolve(docs.map(d => new BaseGraphObject(d)));
+        console.log(docs);
+        console.log(docs.map(d => new BaseGraphObject(d)));
       });
     });
   };
