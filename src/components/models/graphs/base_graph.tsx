@@ -13,6 +13,7 @@ import {
 } from "./gsn";
 import BaseNode from "./base_node";
 import { ActionTypes } from "./base_node";
+import { ArgumentNode, SafetyFeatureNode, GeneralAssumptionNode, GeneralEnvironmentNode, GeneralJustificationNode, SpecificAssumptionNode, SpecificJustificationNode, SubGoalNode } from "./template";
 
 /**
  * Graph object.
@@ -65,10 +66,99 @@ export class BaseGraphObject implements GraphObj {
       case NodeTypes.justification:
         return new JustificationNode(node);
 
+      case NodeTypes.safetyFeature:
+        return new SafetyFeatureNode(node);
+
+      case NodeTypes.generalAssumption:
+        return new GeneralAssumptionNode(node);
+
+      case NodeTypes.generalEnvironment:
+        return new GeneralEnvironmentNode(node);
+
+      case NodeTypes.generalJustification:
+        return new GeneralJustificationNode(node);
+
+      case NodeTypes.specificAssumption:
+        return new SpecificAssumptionNode(node);
+
+      case NodeTypes.specificJustification:
+        return new SpecificJustificationNode(node);
+
+      case NodeTypes.subGoal:
+        return new SubGoalNode(node);
+
+      case NodeTypes.argument:
+        return new ArgumentNode(node);
+
       default:
         return new BaseNode(node);
     }
   }
+
+  generalAssumptionChangeDescription(name: string, nodeType: string){
+    for(let node of this.nodes){
+        if(node.nodeType == nodeType){
+            node.description = name;
+        }
+    }
+}
+
+safetyFeatureChangeDescription(name: string, nodeType: string){
+    for(let node of this.nodes){
+        if(node.nodeType == nodeType){
+            node.description = name;
+        }
+    }
+}
+
+generalEnvironmentChangeDescription(name: string, nodeType: string){
+    for(let node of this.nodes){
+        if(node.nodeType == nodeType){
+            node.description = name;
+        }
+    }
+}
+
+generalJustificationChangeDescription(name: string, nodeType: string){
+    for(let node of this.nodes){
+        if(node.nodeType == nodeType){
+            node.description = name;
+        }
+    }
+}
+
+subGoalChangeDescription(name: string, nodeType: string){
+    for(let node of this.nodes){
+        if(node.nodeType == nodeType){
+            node.description = name;
+        }
+    }
+}
+
+specificAssumptionChangeDescription(name: string, nodeType: string){
+    for(let node of this.nodes){
+        if(node.nodeType == nodeType){
+            node.description = name;
+        }
+    }
+}
+
+specificJustificationChangeDescription(name: string, nodeType: string){
+    for(let node of this.nodes){
+        if(node.nodeType == nodeType){
+            node.description = name;
+        }
+    }
+}
+
+argumentChangeDescription(name: string, nodeType: string){
+  for(let node of this.nodes){
+      if(node.nodeType == nodeType){
+          node.description = name;
+      }
+  }
+}
+
 
   /**
    * Add a node and then return a new node

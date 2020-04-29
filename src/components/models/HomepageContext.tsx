@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Graph } from "./graphs/graph";
 import { NodeObj, NodeTypes } from "./graphs/interfaces";
-import { TemplateGraph } from "./graphs/template_graph";
+import { BaseGraph } from "./graphs/template_graph";
 import { BaseGraphPage } from "./graphs/base_graph";
 import { v4 as uuidv4 } from "uuid";
 import BaseNode from "./graphs/base_node";
 
 interface HomePageContext {
   currentNode: BaseNode;
-  template: TemplateGraph;
+  template: BaseGraph;
   showOpenAddNode: boolean;
   graph: BaseGraphPage;
   update(): void;
@@ -32,7 +32,7 @@ export class HomePageProvider extends Component<
         id: uuidv4()
       }),
       graph: new Graph(),
-      template: new TemplateGraph(),
+      template: new BaseGraph(),
       showOpenAddNode: false,
       update: this.update,
       updateCurrentNode: this.updateCurrentNode,
@@ -77,7 +77,7 @@ export class HomePageProvider extends Component<
 
 const context: HomePageContext = {
   graph: new Graph(),
-  template: new TemplateGraph(),
+  template: new BaseGraph(),
   currentNode: new BaseNode({
     nodeType: NodeTypes.basenode,
     description: "",

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { TemplateGraph } from "./graphs/template_graph";
+import { BaseGraph} from "./graphs/template_graph";
 
 interface TemplatePageState {
-  graph: TemplateGraph;
+  graph: BaseGraph;
   update(): void;
 }
 
@@ -15,7 +15,7 @@ export class TemplatePageProvider extends Component<
   constructor(props: TemplatePageProps) {
     super(props);
     this.state = {
-      graph: new TemplateGraph(),
+      graph: new BaseGraph(),
       update: this.update
     };
   }
@@ -37,7 +37,7 @@ export class TemplatePageProvider extends Component<
 }
 
 const context: TemplatePageState = {
-  graph: new TemplateGraph(),
+  graph: new BaseGraph(),
 
   update: () => { }
 };
