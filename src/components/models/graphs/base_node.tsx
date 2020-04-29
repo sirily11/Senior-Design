@@ -93,7 +93,7 @@ export default class BaseNode implements NodeObj {
       connection: this.connection.map(c => {
         return { id: c.id };
       }),
-      parent: { id: this.parent?.id },
+      parent: this.parent ? { id: this.parent?.id } : undefined,
       id: this.id,
       description: this.description
     };

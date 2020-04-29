@@ -171,4 +171,17 @@ describe("Save the graph", () => {
         expect(reloadGraph._id).toBe("test_graph")
     })
 
+    test("Save the graph and then reload", () => {
+        let graph = new BaseGraphObject({ _id: "test_graph", name: "Test", description: "Test graph", nodes: [node6, node5, node4, node3, node2, node1, node0] })
+        let savedGraph = graph.save()
+        let reloadGraph = new BaseGraphObject(savedGraph as GraphObj)
+        for (let node of reloadGraph.nodes) {
+            let x = node.getXPos()
+            let y = node.getYPos()
+            expect(x).not.toBeUndefined()
+            expect(y).not.toBeUndefined()
+        }
+    })
+
+
 })

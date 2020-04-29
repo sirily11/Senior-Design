@@ -254,6 +254,7 @@ export abstract class BaseGraphPage {
           reject(err);
         } else {
           //@ts-ignore
+          resolve(graph);
         }
       });
     });
@@ -321,12 +322,13 @@ export abstract class BaseGraphPage {
   getAllGraph = (): Promise<BaseGraphObject[]> => {
     return new Promise((resolve, reject) => {
       this.db.find({}, (err, docs) => {
-        console.log(docs);
         if (err) {
           console.log(err);
           reject(err);
         }
         resolve(docs.map(d => new BaseGraphObject(d)));
+        console.log(docs);
+        console.log(docs.map(d => new BaseGraphObject(d)));
       });
     });
   };
