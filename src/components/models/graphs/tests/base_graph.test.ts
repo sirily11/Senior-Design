@@ -142,5 +142,46 @@ describe("Test get number of leaves", () => {
         let number2 = graph.nodes[6]._getNumberOfLeaves(graph.nodes[6])
         expect(number2).toBe(1)
     })
+})
+
+
+describe("Save the graph", () => {
+
+    /**
+    *              6
+    *              /\
+    *             5  4
+    *            /\  /\
+    *           3 2  1 0
+    */
+    let node0: NodeObj = { id: "0", title: "node 0", description: "node 0", nodeType: NodeTypes.basenode, connection: [] }
+    let node1: NodeObj = { id: "1", title: "node 1", description: "node 1", nodeType: NodeTypes.basenode, connection: [] }
+    let node2: NodeObj = { id: "2", title: "node 2", description: "node 2", nodeType: NodeTypes.basenode, connection: [] }
+    let node3: NodeObj = { id: "3", title: "node 3", description: "node 3", nodeType: NodeTypes.basenode, connection: [] }
+    let node4: NodeObj = { id: "4", title: "node 4", description: "node 4", nodeType: NodeTypes.basenode, connection: [node1, node0] }
+    let node5: NodeObj = { id: "5", title: "node 5", description: "node 5", nodeType: NodeTypes.basenode, connection: [node3, node2] }
+    let node6: NodeObj = { id: "6", title: "node 6", description: "node 6", nodeType: NodeTypes.basenode, connection: [node5, node4] }
+
+    test("Save the graph and then reload", () => {
+        let graph = new BaseGraphObject({ _id: "test_graph", name: "Test", description: "Test graph", nodes: [node6, node5, node4, node3, node2, node1, node0] })
+        let savedGraph = graph.save()
+        let reloadGraph = new BaseGraphObject(savedGraph as GraphObj)
+        expect(reloadGraph.nodes.length).toBe(7)
+        expect(reloadGraph.name).toBe("Test")
+        expect(reloadGraph._id).toBe("test_graph")
+    })
+
+    test("Save the graph and then reload", () => {
+        let graph = new BaseGraphObject({ _id: "test_graph", name: "Test", description: "Test graph", nodes: [node6, node5, node4, node3, node2, node1, node0] })
+        let savedGraph = graph.save()
+        let reloadGraph = new BaseGraphObject(savedGraph as GraphObj)
+        for (let node of reloadGraph.nodes) {
+            let x = node.getXPos()
+            let y = node.getYPos()
+            expect(x).not.toBeUndefined()
+            expect(y).not.toBeUndefined()
+        }
+    })
+
 
 })

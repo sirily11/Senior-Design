@@ -27,7 +27,7 @@ export const radiusX = 100;
 export const radiusY = 45;
 
 export default class BaseNode implements NodeObj {
-  id: string;
+  id?: string;
   nodeType = NodeTypes.basenode;
   /**
    * Children
@@ -85,8 +85,18 @@ export default class BaseNode implements NodeObj {
     return 0;
   }
 
-  save(): NodeObj {
-    return this.nodeObject;
+  save() {
+    //@ts-ignore
+    return {
+      title: this.title,
+      nodeType: this.nodeType,
+      connection: this.connection.map(c => {
+        return { id: c.id };
+      }),
+      parent: this.parent ? { id: this.parent?.id } : undefined,
+      id: this.id,
+      description: this.description
+    };
   }
 
   /**
