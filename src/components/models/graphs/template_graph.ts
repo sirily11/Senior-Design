@@ -1,15 +1,17 @@
 import { BaseGraphPage, BaseGraphObject } from './base_graph';
 import { NodeObj, NodeTypes, GraphObj } from './interfaces';
 import BaseNode from './base_node';
-import {SafetyFeatureNode, GeneralAssumptionNode, ArgumentNode, GeneralEnvironmentNode, GeneralJustificationNode,
-SubGoalNode, SpecificAssumptionNode, SpecificJustificationNode} from './template'
+import {
+    SafetyFeatureNode, GeneralAssumptionNode, ArgumentNode, GeneralEnvironmentNode, GeneralJustificationNode,
+    SubGoalNode, SpecificAssumptionNode, SpecificJustificationNode
+} from './template'
 
 /**
  * Predefined graph
  */
 
- //Need this to update descriptions for these nodes. Possibly need getters and setters somewhere so it can grab 
- //the description info from when we establish that in the template page. 
+//Need this to update descriptions for these nodes. Possibly need getters and setters somewhere so it can grab 
+//the description info from when we establish that in the template page. 
 const graph1 = () => {
     /**
      *              6
@@ -41,22 +43,4 @@ export class BaseGraph extends BaseGraphPage {
         this.selectedGraph = this.graphs[0];
     }
 
-    /**
- * Create new graph
- */
-    addGraph = (name: string, description: string, graph?: BaseGraphObject): Promise<BaseGraphObject> => {
-
-        return new Promise((resolve, reject) => {
-            let data: GraphObj = graph ? graph.save(name, description) : { "name": name, "description": description, "nodes": [] }
-            delete data._id;
-            this.db.insert(data, (err, doc) => {
-                if (err) { console.log(err); reject(err) }
-                else {
-                    let newGraph = new BaseGraphObject(doc)
-                    resolve(newGraph)
-                }
-
-            })
-        })
-    }
 }
