@@ -122,7 +122,7 @@ export default class BaseNode implements NodeObj {
   getXPos(): number {
     let order = this.order ?? 0;
     let relativePos = order * width * padding_param;
-    let notCircle = [NodeTypes.basenode, NodeTypes.goal];
+    let notCircle = [NodeTypes.basenode, NodeTypes.goal, NodeTypes.context];
     // root position
     // if (!this.parent) {
     //     let numberOflLeaves = this._getNumberOfLeaves(this)

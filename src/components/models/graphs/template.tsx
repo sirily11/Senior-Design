@@ -43,11 +43,12 @@ export class SafetyFeatureNode extends BaseNode {
       return (
         <Group>
           <Ellipse
-            x={radiusX}
-            y={radiusY}
+            x={radiusX + 10}
+            y={radiusY + 10}
             radiusX={radiusX}
             radiusY={radiusY}
             fill={"purple"}
+            shadowBlur={10}
           />
           <Text x={radiusX-xTitleTextOffset} y={radiusY-yTitleOffset} text={"Safety Feature"} fontSize={titleSize} fill={"white"}/>
           <Text x={radiusX-xDescTextOffset} y={radiusY} text={this.description ?? "None"} fontSize={fontSize} fill={"white"}/>
@@ -58,11 +59,12 @@ export class SafetyFeatureNode extends BaseNode {
     return (
       <Group>
         <Ellipse
-          x={x}
-          y={y}
+          x={x  + 10}
+          y={y + 10}
           radiusX={radiusX}
           radiusY={radiusY}
           fill={"purple"}
+          shadowBlur={10}
         />
        <Text x={x-xTitleTextOffset} y={y-yTitleOffset} text={"Safety Feature"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -75,6 +77,7 @@ export class SafetyFeatureNode extends BaseNode {
               y - radiusY / 2
             ]}
             stroke="black"
+            shadowBlur={10}
           />
         )}
       </Group>
@@ -116,6 +119,7 @@ export class GeneralAssumptionNode extends BaseNode {
             radiusX={radiusX}
             radiusY={radiusY}
             fill={"blue"}
+            shadowBlur={10}
           />
           <Text x={radiusX-xTitleTextOffset} y={radiusY-yTitleOffset} text={"General Assumption"} fontSize={titleSize} fill={"white"} />
           <Text x={radiusX-xDescTextOffset-45} y={radiusY} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -131,6 +135,7 @@ export class GeneralAssumptionNode extends BaseNode {
           radiusX={radiusX}
           radiusY={radiusY}
           fill={"blue"}
+          shadowBlur={10}
         />
         <Text x={x-xTitleTextOffset} y={y-yTitleOffset} text={"General Assumption"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset-45} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -143,6 +148,7 @@ export class GeneralAssumptionNode extends BaseNode {
               y - radiusY / 2
             ]}
             stroke="black"
+            shadowBlur={10}
           />
         )}
       </Group>
@@ -162,11 +168,11 @@ export class ArgumentNode extends BaseNode {
 
 
         return <Group>
-            <Rect x={x} y={y} width={width} height={height} fill={"orange"} />
+            <Rect x={x} y={y} width={width} height={height} fill={"orange"} shadowBlur={10}/>
             <Text x={x+25} y={y + 10} text={"Argument"} fontSize={titleSize} fill={"white"}/>
             <Text x={x+7} y={y + 25} text={"Argument over\n the effectiveness\n" + 
             " of the hazard-\nmigration strategies\n for the " + this.description} fontSize={fontSize} fill={"white"}/>
-            {this.parent && <Line points={[this.parent.getXPos() + width / 2, this.parent.getYPos() + height, x + width / 2, y]} stroke="black" />}
+            {this.parent && <Line shadowBlur={10} points={[this.parent.getXPos() + width / 2, this.parent.getYPos() + height, x + width / 2, y]} stroke="black" />}
         </Group>
 
     }
@@ -184,10 +190,10 @@ export class GeneralEnvironmentNode extends BaseNode {
 
 
         return <Group>
-        <Rect x={x} y={y} width={width} height={height} fill={"red"} />
+        <Rect x={x} y={y} width={width} height={height} fill={"red"} shadowBlur={10} />
         <Text x={x} y={y + 10} text={"General Environment"} fontSize={titleSize-2} fill={"white"}/>
         <Text x={x+10} y={y + 25} text={this.description ?? "None"} fontSize={fontSize} fill={"white"}/>
-        {this.parent && <Line points={[this.parent.getXPos() + width / 2, this.parent.getYPos() + height, x + width / 2, y]} stroke="black" />}
+        {this.parent && <Line shadowBlur={10} points={[this.parent.getXPos() + width / 2, this.parent.getYPos() + height, x + width / 2, y]} stroke="black" />}
     </Group>
 
     }
@@ -218,11 +224,12 @@ export class GeneralJustificationNode extends BaseNode {
       return (
         <Group>
           <Ellipse
-            x={radiusX}
+            x={radiusX + 10}
             y={radiusY}
             radiusX={radiusX}
             radiusY={radiusY}
             fill={"green"}
+            shadowBlur={10}
           />
           <Text x={x-xTitleTextOffset} y={y-yTitleOffset} text={"General Justification"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset-30} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -233,11 +240,12 @@ export class GeneralJustificationNode extends BaseNode {
     return (
       <Group>
         <Ellipse
-          x={x}
+          x={x + 10}
           y={y}
           radiusX={radiusX}
           radiusY={radiusY}
           fill={"green"}
+          shadowBlur={10}
         />
         <Text x={x-xTitleTextOffset} y={y-yTitleOffset} text={"General Justification"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset-30} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -250,6 +258,7 @@ export class GeneralJustificationNode extends BaseNode {
               y - radiusY / 2
             ]}
             stroke="black"
+            shadowBlur={10}
           />
         )}
       </Group>
@@ -291,6 +300,7 @@ export class SubGoalNode extends BaseNode {
             radiusX={radiusX}
             radiusY={radiusY}
             fill={"purple"}
+            shadowBlur={10}
           />
           <Text x={x-xTitleTextOffset - 200} y={y-yTitleOffset} text={"Sub Goal"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset - 250} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -306,6 +316,7 @@ export class SubGoalNode extends BaseNode {
           radiusX={radiusX}
           radiusY={radiusY}
           fill={"purple"}
+          shadowBlur={10}
         />
         <Text x={x-xTitleTextOffset - 200} y={y-yTitleOffset} text={"Sub Goal"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset - 250} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -318,6 +329,7 @@ export class SubGoalNode extends BaseNode {
               y - radiusY / 2
             ]}
             stroke="black"
+            shadowBlur={10}
           />
         )}
       </Group>
@@ -358,6 +370,7 @@ export class SpecificAssumptionNode extends BaseNode {
             radiusX={radiusX}
             radiusY={radiusY}
             fill={"indigo"}
+            shadowBlur={10}
           />
          <Text x={x-xTitleTextOffset - 800} y={y-yTitleOffset} text={"Specific Assumption"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset - 850} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -373,6 +386,7 @@ export class SpecificAssumptionNode extends BaseNode {
           radiusX={radiusX}
           radiusY={radiusY}
           fill={"indigo"}
+          shadowBlur={10}
         />
         <Text x={x-xTitleTextOffset - 800} y={y-yTitleOffset} text={"Specific Assumption"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset - 850} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -385,6 +399,7 @@ export class SpecificAssumptionNode extends BaseNode {
               y - radiusY / 2
             ]}
             stroke="black"
+            shadowBlur={10}
           />
         )}
       </Group>
@@ -425,6 +440,7 @@ export class SpecificJustificationNode extends BaseNode {
             radiusX={radiusX}
             radiusY={radiusY}
             fill={"green"}
+            shadowBlur={10}
           />
           <Text x={x-xTitleTextOffset - 800} y={y-yTitleOffset} text={"Specific Justification"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset - 850} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -440,6 +456,7 @@ export class SpecificJustificationNode extends BaseNode {
           radiusX={radiusX}
           radiusY={radiusY}
           fill={"green"}
+          shadowBlur={10}
         />
         <Text x={x-xTitleTextOffset - 800} y={y-yTitleOffset} text={"Specific Justification"} fontSize={titleSize} fill={"white"} />
         <Text x={x-xDescTextOffset - 850} y={y} text={this.description ?? "None"} fontSize={fontSize} fill={"white"} />
@@ -452,6 +469,7 @@ export class SpecificJustificationNode extends BaseNode {
               y - radiusY / 2
             ]}
             stroke="black"
+            shadowBlur={10}
           />
         )}
       </Group>

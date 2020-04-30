@@ -21,13 +21,25 @@ import { NodeObj, NodeTypes } from "../../../../models/graphs/interfaces";
 import BaseNode from "../../../../models/graphs/base_node";
 import {
   JustificationNode,
-  AssumptionNode
+  AssumptionNode,
+  StrategyNode
 } from "../../../../models/graphs/gsn";
 import {
   GoalNode,
   SolutionNode,
   ContextNode
 } from "../../../../models/graphs/gsn";
+
+import {
+  SafetyFeatureNode,
+  GeneralJustificationNode,
+  GeneralAssumptionNode,
+  GeneralEnvironmentNode,
+  SubGoalNode,
+  ArgumentNode,
+  SpecificAssumptionNode,
+  SpecificJustificationNode
+} from "../../../../models/graphs/template"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,6 +70,7 @@ export default function EditPanel() {
   } = useContext(HomePageContext);
 
   const [title, setTitle] = useState(currentNode?.title);
+  const [description, setDescription] = useState(currentNode?.description);
 
   const buttons = (
     <div className={classes.actionsContainer}>
@@ -102,7 +115,7 @@ export default function EditPanel() {
       <GridRow>
         <Grid.Column>
           <TextField
-            label="Node Text"
+            label="Node Title"
             value={title ?? ""}
             fullWidth
             onChange={e => {
@@ -111,7 +124,18 @@ export default function EditPanel() {
               updateCurrentNode(currentNode);
             }}
           />
-        </Grid.Column>
+          <TextField
+            label="Node Description"
+            value={description ?? ""}
+            fullWidth
+            onChange={e => {
+              setDescription(e.target.value);
+              currentNode.description = e.target.value;
+              updateCurrentNode(currentNode);
+            }}
+          />
+        
+          </Grid.Column>
       </GridRow>
       <Grid.Row>
         <Grid.Column>
@@ -124,23 +148,23 @@ export default function EditPanel() {
                 let nodeTypes: NodeTypes = e.target.value as NodeTypes;
                 let node: BaseNode | undefined = undefined;
 
-                if (nodeTypes === NodeTypes.basenode) {
-                  node = new BaseNode({
-                    id: uuidv4(),
-                    connection: [],
-                    nodeType: nodeTypes,
-                    description: "",
-                    title: title
-                  });
-                } else if (nodeTypes === NodeTypes.goal) {
+                if (nodeTypes === NodeTypes.goal) {
                   node = new GoalNode({
                     id: uuidv4(),
                     connection: [],
                     nodeType: nodeTypes,
+                    description: description,
+                    title: title
+                  });
+                } else if (nodeTypes === NodeTypes.strategy) {
+                  node = new StrategyNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
                     description: "",
                     title: title
                   });
-                } else if (nodeTypes === NodeTypes.solution) {
+                }else if (nodeTypes === NodeTypes.solution) {
                   node = new SolutionNode({
                     id: uuidv4(),
                     connection: [],
@@ -166,6 +190,70 @@ export default function EditPanel() {
                   });
                 } else if (nodeTypes === NodeTypes.assumption) {
                   node = new AssumptionNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                }else if (nodeTypes === NodeTypes.safetyFeature) {
+                  node = new SafetyFeatureNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                }else if (nodeTypes === NodeTypes.generalAssumption) {
+                  node = new GeneralAssumptionNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                }else if (nodeTypes === NodeTypes.generalEnvironment) {
+                  node = new GeneralEnvironmentNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                }else if (nodeTypes === NodeTypes.generalJustification) {
+                  node = new GeneralJustificationNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                }else if (nodeTypes === NodeTypes.argument) {
+                  node = new ArgumentNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                }else if (nodeTypes === NodeTypes.subGoal) {
+                  node = new SubGoalNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                }else if (nodeTypes === NodeTypes.specificAssumption) {
+                  node = new SpecificAssumptionNode({
+                    id: uuidv4(),
+                    connection: [],
+                    nodeType: nodeTypes,
+                    description: "",
+                    title: title
+                  });
+                }else if (nodeTypes === NodeTypes.specificJustification) {
+                  node = new SpecificJustificationNode({
                     id: uuidv4(),
                     connection: [],
                     nodeType: nodeTypes,
@@ -212,7 +300,7 @@ export default function EditPanel() {
             >
               {currentSelectedGraph.selectedGraph?.nodes.map(s => (
                 <MenuItem value={s.id} key={s.title}>
-                  {s.title}
+                  {s.title} {s.description}
                 </MenuItem>
               ))}
             </Select>

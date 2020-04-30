@@ -56,7 +56,8 @@ export default function GraphActions() {
               schemas={schemas}
               url=""
               onSubmit={async data => {
-                await graph.addGraph(data["name"], data["description"]);
+                let newGraph = await graph.addGraph(data["name"], data["description"]);
+                let graphs = await graph.getAllGraph()
                 update();
                 setOpen(false);
               }}

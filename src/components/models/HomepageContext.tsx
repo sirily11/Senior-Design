@@ -27,6 +27,7 @@ export class HomePageProvider extends Component<
     this.state = {
       currentNode: new BaseNode({
         nodeType: NodeTypes.basenode,
+        title: "",
         description: "",
         connection: [],
         id: uuidv4()
