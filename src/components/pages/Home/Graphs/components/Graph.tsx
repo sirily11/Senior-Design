@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 
 import { Stage, Layer, Rect, Text, Circle } from "react-konva";
 import Konva from "konva";
-import { Grid } from "semantic-ui-react";
 import { HomePageContext } from "../../../../models/HomepageContext";
 import { NodeObj } from "../../../../models/graphs/interfaces";
+import Grid from "@material-ui/core/Grid";
 
 export default function Graph() {
   const {
@@ -16,7 +16,7 @@ export default function Graph() {
   } = useContext(HomePageContext);
 
   return (
-    <Grid.Column width={12} id="graph" style={{ cursor: "grab" }}>
+    <Grid item xs={6} id="graph" style={{ cursor: "grab" }}>
       <Stage width={window.innerWidth - 200} height={600}>
         {graph?.selectedGraph?.render({
           onClick: node => {
@@ -25,6 +25,6 @@ export default function Graph() {
           }
         })}
       </Stage>
-    </Grid.Column>
+    </Grid>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import {
-  Grid,
   Sidebar,
   Menu,
   Icon,
@@ -8,7 +7,6 @@ import {
   Modal,
   Header,
   GridColumn,
-  Divider,
   Segment,
   Label
 } from "semantic-ui-react";
@@ -21,19 +19,23 @@ import Graph from "./components/Graph";
 import GraphInfo from "./components/GraphInfo";
 import GraphToolArea from "./components/GraphToolArea";
 import { HomePageContext } from "../../../models/HomepageContext";
-
+import Grid from "@material-ui/core/Grid";
+import { Divider } from "@material-ui/core";
 
 export default function GraphPage() {
   const { graph } = useContext(HomePageContext);
   return (
     <div>
-      <Grid>
+      <Grid container>
         <Segment placeholder>
-          <Grid.Row>
+          <Grid container>
             <GraphActions></GraphActions>
-            <Divider></Divider>
+            <Grid item xs={12}>
+              {" "}
+              <Divider />
+            </Grid>
             <GraphInfo></GraphInfo>
-          </Grid.Row>
+          </Grid>
         </Segment>
         <Graph></Graph>
         {graph.selectedGraph && (
