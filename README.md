@@ -1,4 +1,4 @@
-# React With Electron
+# Senior Design sdmay20-26 Assurance Recipes
 ![Node.js CI](https://github.com/sirily11/Senior-Design/workflows/Node.js%20CI/badge.svg)
 
 ## Usage
@@ -12,11 +12,6 @@ Then run
 ```bash
 yarn start
 ```
-
-# This is the template using electron and react together with Typescript
-You can use this template to build any react-electron app.
-It has material-ui as UI framework,  axios for http requests,  jest for testing and
-lingui for multilanguages support. It also has travis CI file included.
 
 # yarn build
 Build your render's html but not the actual electron app
@@ -33,12 +28,4 @@ After running yarn build, use this command to build app for Windows
 # yarn test
 Test your software
 
-# yarn add-locale
-Add new language to your app
-
-# yarn extract
-Extract your language to language file
-
-# yarn compile
-Compile your language file
 

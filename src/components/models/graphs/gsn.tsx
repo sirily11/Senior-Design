@@ -96,7 +96,7 @@ export class SolutionNode extends BaseNode {
       <Group>
         <Circle x={x} y={y} radius={radius} fill={"blue"} />
         <Text x={x - 15} y={y - 20} text={this.title ?? "None"} fill={"white"} />
-          <Text x={x + 35} y={y - 10} text={this.description ?? "None"} fill={"white"} />
+          <Text x={x - 35} y={y - 10} text={this.description ?? "None"} fill={"white"} />
         {this.parent && (
           <Line
             points={[
