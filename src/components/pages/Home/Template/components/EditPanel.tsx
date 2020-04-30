@@ -94,6 +94,34 @@ export default function VerticalLinearStepper() {
     switch (step) {
       case 0:
         return (
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">
+              Select your template
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={templateContext.graph.selectedGraph?._id ?? 0}
+              onChange={e => {
+                templateContext.graph.selectGraph(
+                  templateContext.graph.graphs.filter(
+                    v => v._id === e.target.value
+                  )[0]
+                );
+                templateContext.update();
+              }}
+            >
+              {templateContext.graph.graphs.map(g => (
+                <MenuItem value={g._id} key={g._id}>
+                  {g.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          
+        );
+      case 1:
+        return (
           <form>
             <TextField
               label="Graph Name"
@@ -323,33 +351,7 @@ export default function VerticalLinearStepper() {
               ))}
             </Select>
           </form>
-        );
-      case 1:
-        return (
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">
-              Select your template
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={templateContext.graph.selectedGraph?._id ?? 0}
-              onChange={e => {
-                templateContext.graph.selectGraph(
-                  templateContext.graph.graphs.filter(
-                    v => v._id === e.target.value
-                  )[0]
-                );
-                templateContext.update();
-              }}
-            >
-              {templateContext.graph.graphs.map(g => (
-                <MenuItem value={g._id} key={g._id}>
-                  {g.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          
         );
 
       default:

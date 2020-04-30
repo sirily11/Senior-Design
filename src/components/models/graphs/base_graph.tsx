@@ -254,6 +254,7 @@ export abstract class BaseGraphPage {
           reject(err);
         } else {
           //@ts-ignore
+         // this.graphs.push(graph);
           resolve(graph);
         }
       });
