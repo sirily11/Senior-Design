@@ -26,6 +26,8 @@ export const radiusX = 100;
 
 export const radiusY = 45;
 
+export const strokeWidth = 3;
+
 export default class BaseNode implements NodeObj {
   id?: string;
   nodeType = NodeTypes.basenode;

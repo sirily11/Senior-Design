@@ -2,9 +2,7 @@ import React from "react";
 import { NodeTypes } from "./interfaces";
 import rect from "react";
 import { Layer, Rect, Text, Group, Line, Circle, Ellipse } from "react-konva";
-import BaseNode, { height, width, radius, radiusX, radiusY } from "./base_node";
-
-
+import BaseNode, { height, width, radius, radiusX, radiusY, strokeWidth } from "./base_node";
 
 export class GoalNode extends BaseNode {
   nodeType = NodeTypes.goal;
@@ -31,7 +29,7 @@ export class GoalNode extends BaseNode {
     if (preview) {
       return (
         <Group>
-          <Rect x={0} y={0} height={height} width={width} fill={"red"} shadowBlur={10}/>
+          <Rect x={0} y={0} height={height} width={width} fill={"red"} shadowBlur={10} stroke={"black"} strokeWidth={strokeWidth}/>
           <Text x={10} y={height / 2 - 20} text={this.title ?? "None"} fill={"white"}/>
           <Text x={10} y={height / 2 - 10} text={this.description ?? "None"} fill={"white"}/>
         </Group>
@@ -40,7 +38,7 @@ export class GoalNode extends BaseNode {
 
     return (
       <Group>
-        <Rect x={x} y={y} height={height} width={width} fill={"red"} shadowBlur={10}/>
+        <Rect x={x} y={y} height={height} width={width} fill={"red"} shadowBlur={10} stroke={"black"} strokeWidth={strokeWidth}/>
         <Text x={10} y={height / 2 - 20 } text={"Goal"} fill={"white"}/>
           <Text x={10} y={height / 2 - 10} text={this.description ?? "None"} fill={"white"}/>
         {this.parent && (
@@ -85,7 +83,7 @@ export class SolutionNode extends BaseNode {
     if (preview) {
       return (
         <Group>
-          <Circle x={x} y={y} radius={radius} fill={"blue"} shadowBlur={10}/>
+          <Circle x={x} y={y} radius={radius} fill={"blue"} shadowBlur={10} stroke={"black"} strokeWidth={strokeWidth}/>
           <Text x={x - 15} y={y - 20} text={this.title ?? "None"} fill={"white"} />
           <Text x={x - 35} y={y - 10} text={this.description ?? "None"} fill={"white"} />
         </Group>
@@ -94,7 +92,7 @@ export class SolutionNode extends BaseNode {
 
     return (
       <Group>
-        <Circle x={x} y={y} radius={radius} fill={"blue"} />
+        <Circle x={x} y={y} radius={radius} fill={"blue"} shadowBlur={10} stroke={"black"} strokeWidth={strokeWidth}/>
         <Text x={x - 15} y={y - 20} text={this.title ?? "None"} fill={"white"} />
           <Text x={x - 35} y={y - 10} text={this.description ?? "None"} fill={"white"} />
         {this.parent && (
@@ -147,6 +145,8 @@ export class ContextNode extends BaseNode {
             fill={"red"}
             cornerRadius={10}
             shadowBlur={10}
+            stroke={"black"}
+            strokeWidth={strokeWidth}
           />
           <Text x={10} y={height / 4 - 20} text={this.title ?? "None"} fill={"white"} />
           <Text x={10} y ={height / 4 - 10} text={this.description ?? "None"} fill={"white"} />
@@ -164,6 +164,8 @@ export class ContextNode extends BaseNode {
           fill={"red"}
           cornerRadius={10}
           shadowBlur={10}
+          stroke={"black"}
+          strokeWidth={strokeWidth}
         />
         <Text x={x + 10} y={y + height / 4 - 20} text={this.title ?? "None"} />
         <Text x={10} y ={height / 4 - 10} text={this.description ?? "None"} fill={"white"} />
@@ -215,6 +217,8 @@ export class JustificationNode extends BaseNode {
             radiusY={radiusY}
             fill={"purple"}
             shadowBlur={10}
+            stroke={"black"}
+            strokeWidth={strokeWidth}
           />
           <Text x={radiusX - 15} y={radiusY - 20} text={this.title ?? "None"} fill={"white"} />
           <Text x={radiusX - 75} y={radiusY - 10} text={this.description ?? "None"} fill={"white"} />
@@ -231,6 +235,8 @@ export class JustificationNode extends BaseNode {
           radiusY={radiusY}
           fill={"purple"}
           shadowBlur={10}
+          stroke={"black"}
+          strokeWidth={strokeWidth}
         />
         <Text x={x - 15} y={y - 20} text={this.title ?? "None"} fill={"white"} />
         <Text x={x - 75} y={y - 10} text={this.description ?? "None"} fill={"white"} />
@@ -282,6 +288,8 @@ export class AssumptionNode extends BaseNode {
             radiusY={radiusY}
             fill={"orange"}
             shadowBlur={10}
+            stroke={"black"}
+            strokeWidth={strokeWidth}
           />
           <Text x={radiusX - 15} y={radiusY - 20} text={this.title ?? "None"} fill={"white"} />
           <Text x={radiusX - 75} y={radiusY - 10} text={this.description ?? "None"} fill={"white"} />
@@ -297,6 +305,8 @@ export class AssumptionNode extends BaseNode {
           radiusY={radiusY}
           fill={"orange"}
           shadowBlur={10}
+          stroke={"black"}
+          strokeWidth={strokeWidth}
         />
         <Text x={radiusX - 15} y={radiusY - 20} text={this.title ?? "None"} fill={"white"} />
           <Text x={radiusX - 75} y={radiusY - 10} text={this.description ?? "None"} fill={"white"} />
@@ -343,7 +353,7 @@ export class StrategyNode extends BaseNode {
     if (preview) {
       return (
         <Group>
-          <Rect x={0} y={0} height={height} width={width} fill={"green"} shadowBlur={10}/>
+          <Rect x={0} y={0} height={height} width={width} fill={"green"} shadowBlur={10} stroke={"black"} strokeWidth={strokeWidth}/>
           <Text x={10} y={height / 2 - 20} text={this.title ?? "None"} fill={"white"}/>
           <Text x={10} y={height / 2 - 10} text={this.description ?? "None"} fill={"white"}/>
         </Group>
@@ -352,7 +362,7 @@ export class StrategyNode extends BaseNode {
 
     return (
       <Group>
-        <Rect x={x} y={y} height={height} width={width} fill={"green"} shadowBlur={10} />
+        <Rect x={x} y={y} height={height} width={width} fill={"green"} shadowBlur={10} stroke={"black"} strokeWidth={strokeWidth} />
         <Text x={10} y={height / 2 - 20} text={this.title ?? "None"} fill={"white"}/>
         <Text x={10} y={height / 2 - 10} text={this.description ?? "None"} fill={"white"}/>
         {this.parent && (

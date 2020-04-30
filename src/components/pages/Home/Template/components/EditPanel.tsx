@@ -66,6 +66,8 @@ export default function VerticalLinearStepper() {
     "My Specific Justification"
   );
 
+  const [argument, setArgument] = useState("My Argument");
+
   const handleNext = async () => {
     if (activeStep === steps.length - 1) {
       if (templateContext.graph.selectedGraph) {
@@ -152,10 +154,6 @@ export default function VerticalLinearStepper() {
                   e.target.value as string,
                   "SAFETY_FEATURE"
                 );
-                templateContext.graph.selectedGraph?.argumentChangeDescription(
-                  e.target.value as string,
-                  "ARGUMENT"
-                );
                 setSafetyFeature(e.target.value as string);
                 templateContext.update();
               }}
@@ -226,6 +224,31 @@ export default function VerticalLinearStepper() {
                 "Saltwater lakes or\n oceans",
                 "A human gut"
               ].map(s => (
+                <MenuItem value={s} id={s}>
+                  {s}
+                </MenuItem>
+              ))}
+            </Select>
+
+            <Divider></Divider>
+
+            <InputLabel id="demo-simple-select-label">
+                Argument
+            </InputLabel>
+            <Select
+              label="Argument"
+              fullWidth
+              value={argument}
+              onChange={e => {
+                templateContext.graph.selectedGraph?.argumentChangeDescription(
+                  e.target.value as string,
+                  "ARGUMENT"
+                );
+                setArgument(e.target.value as string);
+                templateContext.update();
+              }}
+            >
+              {["Argument over\n the effectiveness\n of the hazard-\nmigration strategies\n for the " + safetyFeature].map(s => (
                 <MenuItem value={s} id={s}>
                   {s}
                 </MenuItem>
