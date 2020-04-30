@@ -1,4 +1,4 @@
-# React With Electron
+# Senior Design sdmay20-26 Assurance Recipes
 ![Node.js CI](https://github.com/sirily11/Senior-Design/workflows/Node.js%20CI/badge.svg)
 
 ## Usage
