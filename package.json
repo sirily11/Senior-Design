@@ -99,7 +99,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^4.1.0",
     "concurrently": "^4.1.0",
-    "electron": "^6.0.9",
+    "electron": "^11.5.0",
     "electron-builder": "^21.2.0",
     "wait-on": "^3.2.0"
   },
